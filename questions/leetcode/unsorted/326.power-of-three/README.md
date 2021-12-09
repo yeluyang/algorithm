@@ -1,63 +1,41 @@
-[326] 3 的幂  
+# 326.3 的幂
 
-https://leetcode-cn.com/problems/power-of-three/description/
+<https://leetcode-cn.com/problems/power-of-three/description/>
 
-Tags:   algorithms   google   math 
+给定一个整数，写一个函数来判断它是否是 3的幂次方。如果是，返回 `true` ；否则，返回 `false` 。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+整数 `n` 是 3 的幂次方需满足：存在整数 `x` 使得 `n == 3^x`
 
-* algorithms
-* Easy (50.46%)
-* Likes:    236
-* Dislikes: -
-* Total Accepted:    142.7K
-* Total Submissions: 282.7K
-* Testcase Example:  '27'
-* Source Code:       tmp/326.power-of-three.rs
+示例 1：
 
-<p>给定一个整数，写一个函数来判断它是否是 3&nbsp;的幂次方。如果是，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+```txt
+输入：n = 27
+输出：true
+```
 
-<p>整数 <code>n</code> 是 3 的幂次方需满足：存在整数 <code>x</code> 使得 <code>n == 3<sup>x</sup></code></p>
+示例 2：
 
-<p>&nbsp;</p>
+```txt
+输入：n = 0
+输出：false
+```
 
-<p><strong>示例 1：</strong></p>
+示例 3：
 
-<pre>
-<strong>输入：</strong>n = 27
-<strong>输出：</strong>true
-</pre>
+```txt
+输入：n = 9
+输出：true
+```
 
-<p><strong>示例 2：</strong></p>
+示例 4：
 
-<pre>
-<strong>输入：</strong>n = 0
-<strong>输出：</strong>false
-</pre>
+```txt
+输入：n = 45
+输出：false
+```
 
-<p><strong>示例 3：</strong></p>
+提示：
 
-<pre>
-<strong>输入：</strong>n = 9
-<strong>输出：</strong>true
-</pre>
+- `-2^31 <= n <= 2^31 - 1`
 
-<p><strong>示例 4：</strong></p>
-
-<pre>
-<strong>输入：</strong>n = 45
-<strong>输出：</strong>false
-</pre>
-
-<p>&nbsp;</p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>-2<sup>31</sup> &lt;= n &lt;= 2<sup>31</sup> - 1</code></li>
-</ul>
-
-<p>&nbsp;</p>
-
-<p><strong>进阶：</strong>你能不使用循环或者递归来完成本题吗？</p>
-
+进阶：你能不使用循环或者递归来完成本题吗？

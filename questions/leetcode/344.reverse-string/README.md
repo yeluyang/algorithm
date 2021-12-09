@@ -1,45 +1,26 @@
-[344] 反转字符串  
+# 344.反转字符串
 
-https://leetcode-cn.com/problems/reverse-string/description/
+<https://leetcode-cn.com/problems/reverse-string/description/>
 
-Tags:   algorithms   two-pointers   string 
+编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 `s` 的形式给出。
 
-Langs:  c   cpp   csharp   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+不要给另外的数组分配额外的空间，你必须[原地](https://baike.baidu.com/item/原地算法)修改输入数组、使用 $O(1)$ 的额外空间解决这一问题。
 
-* algorithms
-* Easy (77.33%)
-* Likes:    493
-* Dislikes: -
-* Total Accepted:    407.5K
-* Total Submissions: 527K
-* Testcase Example:  '["h","e","l","l","o"]'
-* Source Code:       344.reverse-string.rs
+示例 1：
 
-<p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 <code>s</code> 的形式给出。</p>
+```txt
+输入：s = ["h","e","l","l","o"]
+输出：["o","l","l","e","h"]
+```
 
-<p>不要给另外的数组分配额外的空间，你必须<strong><a href="https://baike.baidu.com/item/原地算法" target="_blank">原地</a>修改输入数组</strong>、使用 O(1) 的额外空间解决这一问题。</p>
+示例 2：
 
-<p>&nbsp;</p>
+```txt
+输入：s = ["H","a","n","n","a","h"]
+输出：["h","a","n","n","a","H"]
+```
 
-<p><strong>示例 1：</strong></p>
+提示：
 
-<pre>
-<strong>输入：</strong>s = ["h","e","l","l","o"]
-<strong>输出：</strong>["o","l","l","e","h"]
-</pre>
-
-<p><strong>示例 2：</strong></p>
-
-<pre>
-<strong>输入：</strong>s = ["H","a","n","n","a","h"]
-<strong>输出：</strong>["h","a","n","n","a","H"]</pre>
-
-<p>&nbsp;</p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
-	<li><code>s[i]</code> 都是 <a href="https://baike.baidu.com/item/ASCII" target="_blank">ASCII</a> 码表中的可打印字符</li>
-</ul>
-
+- `1 <= s.length <= 10^5`
+- `s[i]` 都是 [ASCII](https://baike.baidu.com/item/ASCII) 码表中的可打印字符

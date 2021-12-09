@@ -1,71 +1,50 @@
-[20] 有效的括号  
+# 20.有效的括号
 
-https://leetcode-cn.com/problems/valid-parentheses/description/
+<https://leetcode-cn.com/problems/valid-parentheses/description/>
 
-Tags:   algorithms   airbnb   amazon   bloomberg   facebook   google   microsoft   twitter   zenefits   string   stack 
+给定一个只包括 `'('`，`')'`，`'{'`，`'}'`，`'['`，`']'` 的字符串 `s` ，判断字符串是否有效。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+有效字符串需满足：
 
-* algorithms
-* Easy (44.54%)
-* Likes:    2811
-* Dislikes: -
-* Total Accepted:    855.3K
-* Total Submissions: 1.9M
-* Testcase Example:  '"()"'
-* Source Code:       tmp/20.valid-parentheses.rs
+1. 左括号必须用相同类型的右括号闭合。
+1. 左括号必须以正确的顺序闭合。
 
-<p>给定一个只包括 <code>'('</code>，<code>')'</code>，<code>'{'</code>，<code>'}'</code>，<code>'['</code>，<code>']'</code> 的字符串 <code>s</code> ，判断字符串是否有效。</p>
+示例 1：
 
-<p>有效字符串需满足：</p>
+```txt
+输入：s = "()"
+输出：true
+```
 
-<ol>
-	<li>左括号必须用相同类型的右括号闭合。</li>
-	<li>左括号必须以正确的顺序闭合。</li>
-</ol>
+示例 2：
 
-<p> </p>
+```txt
+输入：s = "()[]{}"
+输出：true
+```
 
-<p><strong>示例 1：</strong></p>
+示例 3：
 
-<pre>
-<strong>输入：</strong>s = "()"
-<strong>输出：</strong>true
-</pre>
+```txt
+输入：s = "(]"
+输出：false
+```
 
-<p><strong>示例 2：</strong></p>
+示例 4：
 
-<pre>
-<strong>输入：</strong>s = "()[]{}"
-<strong>输出：</strong>true
-</pre>
+```txt
+输入：s = "([)]"
+输出：false
+```
 
-<p><strong>示例 3：</strong></p>
+示例 5：
 
-<pre>
-<strong>输入：</strong>s = "(]"
-<strong>输出：</strong>false
-</pre>
+```txt
+输入：s = "{[]}"
+输出：true
+```
 
-<p><strong>示例 4：</strong></p>
+提示：
 
-<pre>
-<strong>输入：</strong>s = "([)]"
-<strong>输出：</strong>false
-</pre>
-
-<p><strong>示例 5：</strong></p>
-
-<pre>
-<strong>输入：</strong>s = "{[]}"
-<strong>输出：</strong>true</pre>
-
-<p> </p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>1 <= s.length <= 10<sup>4</sup></code></li>
-	<li><code>s</code> 仅由括号 <code>'()[]{}'</code> 组成</li>
-</ul>
-
+- `1 <= s.length <= 10^4`
+- `s` 仅由括号 `'()[]{}'` 组成

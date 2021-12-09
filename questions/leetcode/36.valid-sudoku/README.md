@@ -1,44 +1,25 @@
-[36] 有效的数独  
+# 36.有效的数独
 
-https://leetcode-cn.com/problems/valid-sudoku/description/
+<https://leetcode-cn.com/problems/valid-sudoku/description/>
 
-Tags:   algorithms   apple   snapchat   uber   hash-table 
+请你判断一个`9 x 9` 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+1. 数字`1-9`在每一行只能出现一次。
+1. 数字`1-9`在每一列只能出现一次。
+1. 数字`1-9`在每一个以粗实线分隔的`3x3`宫内只能出现一次。（请参考示例图）
 
-* algorithms
-* Medium (63.82%)
-* Likes:    707
-* Dislikes: -
-* Total Accepted:    224K
-* Total Submissions: 351K
-* Testcase Example:  '[["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]'
-* Source Code:       36.valid-sudoku.rs
+注意：
 
-<p>请你判断一个&nbsp;<code>9 x 9</code> 的数独是否有效。只需要<strong> 根据以下规则</strong> ，验证已经填入的数字是否有效即可。</p>
+- 一个有效的数独（部分已被填充）不一定是可解的。
+- 只需要根据以上规则，验证已经填入的数字是否有效即可。
+- 空白格用`'.'`表示。
 
-<ol>
-	<li>数字&nbsp;<code>1-9</code>&nbsp;在每一行只能出现一次。</li>
-	<li>数字&nbsp;<code>1-9</code>&nbsp;在每一列只能出现一次。</li>
-	<li>数字&nbsp;<code>1-9</code>&nbsp;在每一个以粗实线分隔的&nbsp;<code>3x3</code>&nbsp;宫内只能出现一次。（请参考示例图）</li>
-</ol>
+示例 1：
 
-<p>&nbsp;</p>
+![250px-sudoku-by-l2g-20050714svg.png](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/04/12/250px-sudoku-by-l2g-20050714svg.png)
 
-<p><strong>注意：</strong></p>
-
-<ul>
-	<li>一个有效的数独（部分已被填充）不一定是可解的。</li>
-	<li>只需要根据以上规则，验证已经填入的数字是否有效即可。</li>
-	<li>空白格用&nbsp;<code>'.'</code>&nbsp;表示。</li>
-</ul>
-
-<p>&nbsp;</p>
-
-<p><strong>示例 1：</strong></p>
-<img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/04/12/250px-sudoku-by-l2g-20050714svg.png" style="height:250px; width:250px" />
-<pre>
-<strong>输入：</strong>board = 
+```txt
+输入：board =
 [["5","3",".",".","7",".",".",".","."]
 ,["6",".",".","1","9","5",".",".","."]
 ,[".","9","8",".",".",".",".","6","."]
@@ -48,13 +29,13 @@ Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin
 ,[".","6",".",".",".",".","2","8","."]
 ,[".",".",".","4","1","9",".",".","5"]
 ,[".",".",".",".","8",".",".","7","9"]]
-<strong>输出：</strong>true
-</pre>
+输出：true
+```
 
-<p><strong>示例 2：</strong></p>
+示例 2：
 
-<pre>
-<strong>输入：</strong>board = 
+```txt
+输入：board =
 [["8","3",".",".","7",".",".",".","."]
 ,["6",".",".","1","9","5",".",".","."]
 ,[".","9","8",".",".",".",".","6","."]
@@ -64,16 +45,12 @@ Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin
 ,[".","6",".",".",".",".","2","8","."]
 ,[".",".",".","4","1","9",".",".","5"]
 ,[".",".",".",".","8",".",".","7","9"]]
-<strong>输出：</strong>false
-<strong>解释：</strong>除了第一行的第一个数字从<strong> 5</strong> 改为 <strong>8 </strong>以外，空格内其他数字均与 示例1 相同。 但由于位于左上角的 3x3 宫内有两个 8 存在, 因此这个数独是无效的。</pre>
+输出：false
+解释：除了第一行的第一个数字从 5 改为 8 以外，空格内其他数字均与 示例1 相同。 但由于位于左上角的 3x3 宫内有两个 8 存在, 因此这个数独是无效的。
+```
 
-<p>&nbsp;</p>
+提示：
 
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>board.length == 9</code></li>
-	<li><code>board[i].length == 9</code></li>
-	<li><code>board[i][j]</code> 是一位数字（<code>1-9</code>）或者 <code>'.'</code></li>
-</ul>
-
+- `board.length == 9`
+- `board[i].length == 9`
+- `board[i][j]` 是一位数字（`1-9`）或者 `'.'`

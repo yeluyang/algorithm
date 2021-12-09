@@ -1,71 +1,48 @@
-[26] 删除有序数组中的重复项  
+# 26.删除有序数组中的重复项
 
-https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/description/
+<https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/description/>
 
-Tags:   algorithms   bloomberg   facebook   microsoft   array   two-pointers 
+给你一个有序数组 `nums` ，请你[原地](http://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95) 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。
 
-Langs:  c   cpp   csharp   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+不要使用额外的数组空间，你必须在 [原地](https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95)修改输入数组 并在使用 $O(1)$ 额外空间的条件下完成。
 
-* algorithms
-* Easy (53.69%)
-* Likes:    2352
-* Dislikes: -
-* Total Accepted:    889.9K
-* Total Submissions: 1.7M
-* Testcase Example:  '[1,1,2]'
-* Source Code:       26.remove-duplicates-from-sorted-array.rs
+说明:
 
-<p>给你一个有序数组 <code>nums</code> ，请你<strong><a href="http://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95" target="_blank"> 原地</a></strong> 删除重复出现的元素，使每个元素 <strong>只出现一次</strong> ，返回删除后数组的新长度。</p>
+为什么返回数值是整数，但输出的答案是数组呢?
 
-<p>不要使用额外的数组空间，你必须在 <strong><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95" target="_blank">原地 </a>修改输入数组 </strong>并在使用 O(1) 额外空间的条件下完成。</p>
+请注意，输入数组是以「引用」方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
 
-<p> </p>
+你可以想象内部操作如下:
 
-<p><strong>说明:</strong></p>
-
-<p>为什么返回数值是整数，但输出的答案是数组呢?</p>
-
-<p>请注意，输入数组是以<strong>「引用」</strong>方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p>
-
-<p>你可以想象内部操作如下:</p>
-
-<pre>
-// <strong>nums</strong> 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
+```c
+// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
 int len = removeDuplicates(nums);
 
 // 在函数里修改输入数组对于调用者是可见的。
-// 根据你的函数返回的长度, 它会打印出数组中<strong> 该长度范围内</strong> 的所有元素。
+// 根据你的函数返回的长度, 它会打印出数组中 该长度范围内 的所有元素。
 for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
-</pre>
- 
+```
 
-<p><strong>示例 1：</strong></p>
+示例 1：
 
-<pre>
-<strong>输入：</strong>nums = [1,1,2]
-<strong>输出：</strong>2, nums = [1,2]
-<strong>解释：</strong>函数应该返回新的长度 <strong><code>2</code></strong> ，并且原数组 <em>nums </em>的前两个元素被修改为 <strong><code>1</code></strong>, <strong><code>2 </code></strong><code>。</code>不需要考虑数组中超出新长度后面的元素。
-</pre>
+```txt
+输入：nums = [1,1,2]
+输出：2, nums = [1,2]
+解释：函数应该返回新的长度 2 ，并且原数组 nums 的前两个元素被修改为 1, 2 。不需要考虑数组中超出新长度后面的元素。
+```
 
-<p><strong>示例 2：</strong></p>
+示例 2：
 
-<pre>
-<strong>输入：</strong>nums = [0,0,1,1,1,2,2,3,3,4]
-<strong>输出：</strong>5, nums = [0,1,2,3,4]
-<strong>解释：</strong>函数应该返回新的长度 <strong><code>5</code></strong> ， 并且原数组 <em>nums </em>的前五个元素被修改为 <strong><code>0</code></strong>, <strong><code>1</code></strong>, <strong><code>2</code></strong>, <strong><code>3</code></strong>, <strong><code>4</code></strong> 。不需要考虑数组中超出新长度后面的元素。
-</pre>
+```txt
+输入：nums = [0,0,1,1,1,2,2,3,3,4]
+输出：5, nums = [0,1,2,3,4]
+解释：函数应该返回新的长度 5 ， 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4 。不需要考虑数组中超出新长度后面的元素。
+```
 
-<p> </p>
+提示：
 
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>0 <= nums.length <= 3 * 10<sup>4</sup></code></li>
-	<li><code>-10<sup>4</sup> <= nums[i] <= 10<sup>4</sup></code></li>
-	<li><code>nums</code> 已按升序排列</li>
-</ul>
-
-<p> </p>
-
+- $0 \le nums.length \le 3 * 10^4$
+- $-10^4 \le nums[i] \le 10^4$
+- `nums` 已按升序排列

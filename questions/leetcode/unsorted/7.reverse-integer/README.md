@@ -1,60 +1,40 @@
-[7] 整数反转  
+# 7.整数反转
 
-https://leetcode-cn.com/problems/reverse-integer/description/
+<https://leetcode-cn.com/problems/reverse-integer/description/>
 
-Tags:   algorithms   apple   bloomberg   math 
+给你一个 32 位的有符号整数 `x` ，返回将 `x` 中的数字部分反转后的结果。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+如果反转后整数超过 32 位的有符号整数的范围 `[−2^31,  2^31 − 1]` ，就返回 0。
+假设环境不允许存储 64 位整数（有符号或无符号）。
 
-* algorithms
-* Easy (35.09%)
-* Likes:    3295
-* Dislikes: -
-* Total Accepted:    902.7K
-* Total Submissions: 2.6M
-* Testcase Example:  '123'
-* Source Code:       tmp/7.reverse-integer.rs
+示例 1：
 
-<p>给你一个 32 位的有符号整数 <code>x</code> ，返回将 <code>x</code> 中的数字部分反转后的结果。</p>
+```txt
+输入：x = 123
+输出：321
+```
 
-<p>如果反转后整数超过 32 位的有符号整数的范围 <code>[−2<sup>31</sup>,  2<sup>31 </sup>− 1]</code> ，就返回 0。</p>
-<strong>假设环境不允许存储 64 位整数（有符号或无符号）。</strong>
+示例 2：
 
-<p> </p>
+```txt
+输入：x = -123
+输出：-321
+```
 
-<p><strong>示例 1：</strong></p>
+示例 3：
 
-<pre>
-<strong>输入：</strong>x = 123
-<strong>输出：</strong>321
-</pre>
+```txt
+输入：x = 120
+输出：21
+```
 
-<p><strong>示例 2：</strong></p>
+示例 4：
 
-<pre>
-<strong>输入：</strong>x = -123
-<strong>输出：</strong>-321
-</pre>
+```txt
+输入：x = 0
+输出：0
+```
 
-<p><strong>示例 3：</strong></p>
+提示：
 
-<pre>
-<strong>输入：</strong>x = 120
-<strong>输出：</strong>21
-</pre>
-
-<p><strong>示例 4：</strong></p>
-
-<pre>
-<strong>输入：</strong>x = 0
-<strong>输出：</strong>0
-</pre>
-
-<p> </p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>-2<sup>31</sup> <= x <= 2<sup>31</sup> - 1</code></li>
-</ul>
-
+- `-2^31 <= x <= 2^31 - 1`

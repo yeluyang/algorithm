@@ -1,31 +1,17 @@
-[283] 移动零  
+# 283.移动零
 
-https://leetcode-cn.com/problems/move-zeroes/description/
+<https://leetcode-cn.com/problems/move-zeroes/description/>
 
-Tags:   algorithms   bloomberg   facebook   array   two-pointers 
+给定一个数组 `nums`，编写一个函数将所有 `0` 移动到数组的末尾，同时保持非零元素的相对顺序。
 
-Langs:  c   cpp   csharp   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+示例:
 
-* algorithms
-* Easy (64.04%)
-* Likes:    1330
-* Dislikes: -
-* Total Accepted:    556.6K
-* Total Submissions: 869.2K
-* Testcase Example:  '[0,1,0,3,12]'
-* Source Code:       283.move-zeroes.rs
+```txt
+输入: [0,1,0,3,12]
+输出: [1,3,12,0,0]
+```
 
-<p>给定一个数组 <code>nums</code>，编写一个函数将所有 <code>0</code> 移动到数组的末尾，同时保持非零元素的相对顺序。</p>
+说明:
 
-<p><strong>示例:</strong></p>
-
-<pre><strong>输入:</strong> <code>[0,1,0,3,12]</code>
-<strong>输出:</strong> <code>[1,3,12,0,0]</code></pre>
-
-<p><strong>说明</strong>:</p>
-
-<ol>
-	<li>必须在原数组上操作，不能拷贝额外的数组。</li>
-	<li>尽量减少操作次数。</li>
-</ol>
-
+1. 必须在原数组上操作，不能拷贝额外的数组。
+1. 尽量减少操作次数。

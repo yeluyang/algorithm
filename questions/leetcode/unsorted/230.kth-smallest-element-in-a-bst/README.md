@@ -1,51 +1,29 @@
-[230] 二叉搜索树中第K小的元素  
+# 230.二叉搜索树中第K小的元素
 
-https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/description/
+<https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/description/>
 
-Tags:   algorithms   bloomberg   google   uber   binary-search   tree 
+给定一个二叉搜索树的根节点 `root` ，和一个整数 `k` ，请你设计一个算法查找其中第 `k` 个最小元素（从 1 开始计数）。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+示例 1：
+![kthtree1.jpg](https://assets.leetcode.com/uploads/2021/01/28/kthtree1.jpg)
 
-* algorithms
-* Medium (75.22%)
-* Likes:    536
-* Dislikes: -
-* Total Accepted:    170.8K
-* Total Submissions: 227.1K
-* Testcase Example:  '[3,1,4,null,2]\n1'
-* Source Code:       tmp/230.kth-smallest-element-in-a-bst.rs
+```txt
+输入：root = [3,1,4,null,2], k = 1
+输出：1
+```
 
-<p>给定一个二叉搜索树的根节点 <code>root</code> ，和一个整数 <code>k</code> ，请你设计一个算法查找其中第 <code>k</code><strong> </strong>个最小元素（从 1 开始计数）。</p>
+示例 2：
+![kthtree2.jpg](https://assets.leetcode.com/uploads/2021/01/28/kthtree2.jpg)
 
-<p> </p>
+```txt
+输入：root = [5,3,6,2,4,null,null,1], k = 3
+输出：3
+```
 
-<p><strong>示例 1：</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2021/01/28/kthtree1.jpg" style="width: 212px; height: 301px;" />
-<pre>
-<strong>输入：</strong>root = [3,1,4,null,2], k = 1
-<strong>输出：</strong>1
-</pre>
+提示：
 
-<p><strong>示例 2：</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2021/01/28/kthtree2.jpg" style="width: 382px; height: 302px;" />
-<pre>
-<strong>输入：</strong>root = [5,3,6,2,4,null,null,1], k = 3
-<strong>输出：</strong>3
-</pre>
+- 树中的节点数为 `n` 。
+- `1 <= k <= n <= 10^4`
+- `0 <= Node.val <= 10^4`
 
-<p> </p>
-
-<p> </p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li>树中的节点数为 <code>n</code> 。</li>
-	<li><code>1 <= k <= n <= 10<sup>4</sup></code></li>
-	<li><code>0 <= Node.val <= 10<sup>4</sup></code></li>
-</ul>
-
-<p> </p>
-
-<p><strong>进阶：</strong>如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 <code>k</code> 小的值，你将如何优化算法？</p>
-
+进阶：如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 `k` 小的值，你将如何优化算法？

@@ -1,53 +1,33 @@
-[15] 三数之和  
+# 15.三数之和
 
-https://leetcode-cn.com/problems/3sum/description/
+<https://leetcode-cn.com/problems/3sum/description/>
 
-Tags:   algorithms   adobe   amazon   bloomberg   facebook   microsoft   array   two-pointers 
+给你一个包含 `n` 个整数的数组 `nums`，判断 `nums` 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 `0` 且不重复的三元组。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+注意：答案中不可以包含重复的三元组。
 
-* algorithms
-* Medium (34.00%)
-* Likes:    4062
-* Dislikes: -
-* Total Accepted:    724.9K
-* Total Submissions: 2.1M
-* Testcase Example:  '[-1,0,1,2,-1,-4]'
-* Source Code:       tmp/15.3sum.rs
+示例 1：
 
-<p>给你一个包含 <code>n</code> 个整数的数组 <code>nums</code>，判断 <code>nums</code> 中是否存在三个元素 <em>a，b，c ，</em>使得 <em>a + b + c = </em>0 ？请你找出所有和为 <code>0</code> 且不重复的三元组。</p>
+```txt
+输入：nums = [-1,0,1,2,-1,-4]
+输出：[[-1,-1,2],[-1,0,1]]
+```
 
-<p><strong>注意：</strong>答案中不可以包含重复的三元组。</p>
+示例 2：
 
-<p> </p>
+```txt
+输入：nums = []
+输出：[]
+```
 
-<p><strong>示例 1：</strong></p>
+示例 3：
 
-<pre>
-<strong>输入：</strong>nums = [-1,0,1,2,-1,-4]
-<strong>输出：</strong>[[-1,-1,2],[-1,0,1]]
-</pre>
+```txt
+输入：nums = [0]
+输出：[]
+```
 
-<p><strong>示例 2：</strong></p>
+提示：
 
-<pre>
-<strong>输入：</strong>nums = []
-<strong>输出：</strong>[]
-</pre>
-
-<p><strong>示例 3：</strong></p>
-
-<pre>
-<strong>输入：</strong>nums = [0]
-<strong>输出：</strong>[]
-</pre>
-
-<p> </p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>0 <= nums.length <= 3000</code></li>
-	<li><code>-10<sup>5</sup> <= nums[i] <= 10<sup>5</sup></code></li>
-</ul>
-
+- `0 <= nums.length <= 3000`
+- `-10^5 <= nums[i] <= 10^5`

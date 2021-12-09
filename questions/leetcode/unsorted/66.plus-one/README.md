@@ -1,57 +1,37 @@
-[66] 加一  
+# 66.加一
 
-https://leetcode-cn.com/problems/plus-one/description/
+<https://leetcode-cn.com/problems/plus-one/description/>
 
-Tags:   algorithms   google   array 
+给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
 
-* algorithms
-* Easy (46.33%)
-* Likes:    870
-* Dislikes: -
-* Total Accepted:    408.7K
-* Total Submissions: 882.4K
-* Testcase Example:  '[1,2,3]'
-* Source Code:       tmp/66.plus-one.rs
+你可以假设除了整数 0 之外，这个整数不会以零开头。
 
-<p>给定一个由 <strong>整数 </strong>组成的<strong> 非空</strong> 数组所表示的非负整数，在该数的基础上加一。</p>
+示例 1：
 
-<p>最高位数字存放在数组的首位， 数组中每个元素只存储<strong>单个</strong>数字。</p>
+```txt
+输入：digits = [1,2,3]
+输出：[1,2,4]
+解释：输入数组表示数字 123。
+```
 
-<p>你可以假设除了整数 0 之外，这个整数不会以零开头。</p>
+示例 2：
 
-<p> </p>
+```txt
+输入：digits = [4,3,2,1]
+输出：[4,3,2,2]
+解释：输入数组表示数字 4321。
+```
 
-<p><strong>示例 1：</strong></p>
+示例 3：
 
-<pre>
-<strong>输入：</strong>digits = [1,2,3]
-<strong>输出：</strong>[1,2,4]
-<strong>解释：</strong>输入数组表示数字 123。
-</pre>
+```txt
+输入：digits = [0]
+输出：[1]
+```
 
-<p><strong>示例 2：</strong></p>
+提示：
 
-<pre>
-<strong>输入：</strong>digits = [4,3,2,1]
-<strong>输出：</strong>[4,3,2,2]
-<strong>解释：</strong>输入数组表示数字 4321。
-</pre>
-
-<p><strong>示例 3：</strong></p>
-
-<pre>
-<strong>输入：</strong>digits = [0]
-<strong>输出：</strong>[1]
-</pre>
-
-<p> </p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>1 <= digits.length <= 100</code></li>
-	<li><code>0 <= digits[i] <= 9</code></li>
-</ul>
-
+- `1 <= digits.length <= 100`
+- `0 <= digits[i] <= 9`

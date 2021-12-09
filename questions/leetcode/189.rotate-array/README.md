@@ -1,66 +1,37 @@
-[189] 轮转数组  
+# 189.轮转数组
 
-https://leetcode-cn.com/problems/rotate-array/description/
+<https://leetcode-cn.com/problems/rotate-array/description/>
 
-Tags:   algorithms   amazon   bloomberg   microsoft   array 
+给你一个数组，将数组中的元素向右轮转 `k`个位置，其中`k`是非负数。
 
-Langs:  c   cpp   csharp   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+示例 1:
 
-* algorithms
-* Medium (44.70%)
-* Likes:    1227
-* Dislikes: -
-* Total Accepted:    385.4K
-* Total Submissions: 862.4K
-* Testcase Example:  '[1,2,3,4,5,6,7]\n3'
-* Source Code:       189.rotate-array.rs
+```txt
+输入: nums = [1,2,3,4,5,6,7], k = 3
+输出: [5,6,7,1,2,3,4]
+解释:
+向右轮转 1 步: [7,1,2,3,4,5,6]
+向右轮转 2 步: [6,7,1,2,3,4,5]
+向右轮转 3 步: [5,6,7,1,2,3,4]
+```
 
-<p>给你一个数组，将数组中的元素向右轮转 <code>k</code><em>&nbsp;</em>个位置，其中&nbsp;<code>k</code><em>&nbsp;</em>是非负数。</p>
+示例2:
 
-<p>&nbsp;</p>
-
-<p><strong>示例 1:</strong></p>
-
-<pre>
-<strong>输入:</strong> nums = [1,2,3,4,5,6,7], k = 3
-<strong>输出:</strong> <code>[5,6,7,1,2,3,4]</code>
-<strong>解释:</strong>
-向右轮转 1 步: <code>[7,1,2,3,4,5,6]</code>
-向右轮转 2 步: <code>[6,7,1,2,3,4,5]
-</code>向右轮转 3 步: <code>[5,6,7,1,2,3,4]</code>
-</pre>
-
-<p><strong>示例&nbsp;2:</strong></p>
-
-<pre>
-<strong>输入：</strong>nums = [-1,-100,3,99], k = 2
-<strong>输出：</strong>[3,99,-1,-100]
-<strong>解释:</strong> 
+```txt
+输入：nums = [-1,-100,3,99], k = 2
+输出：[3,99,-1,-100]
+解释:
 向右轮转 1 步: [99,-1,-100,3]
-向右轮转 2 步: [3,99,-1,-100]</pre>
+向右轮转 2 步: [3,99,-1,-100]
+```
 
-<p>&nbsp;</p>
+提示：
 
-<p><strong>提示：</strong></p>
+- `1 <= nums.length <= 10^5`
+- `-2^31 <= nums[i] <= 2^31 - 1`
+- `0 <= k <= 10^5`
 
-<ul>
-	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
-	<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>
-	<li><code>0 &lt;= k &lt;= 10<sup>5</sup></code></li>
-</ul>
+进阶：
 
-<p>&nbsp;</p>
-
-<p><strong>进阶：</strong></p>
-
-<ul>
-	<li>尽可能想出更多的解决方案，至少有 <strong>三种</strong> 不同的方法可以解决这个问题。</li>
-	<li>你可以使用空间复杂度为&nbsp;<code>O(1)</code> 的&nbsp;<strong>原地&nbsp;</strong>算法解决这个问题吗？</li>
-</ul>
-
-<ul>
-</ul>
-
-<ul>
-</ul>
-
+- 尽可能想出更多的解决方案，至少有 三种 不同的方法可以解决这个问题。
+- 你可以使用空间复杂度为$O(1)$ 的原地算法解决这个问题吗？

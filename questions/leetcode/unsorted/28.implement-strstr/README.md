@@ -1,61 +1,39 @@
-[28] 实现 strStr()  
+# 28.实现 strStr()
 
-https://leetcode-cn.com/problems/implement-strstr/description/
+<https://leetcode-cn.com/problems/implement-strstr/description/>
 
-Tags:   algorithms   apple   facebook   microsoft   pocketgems   two-pointers   string 
+实现 [strStr()](https://baike.baidu.com/item/strstr/811469) 函数。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+给你两个字符串 `haystack` 和 `needle` ，请你在 `haystack` 字符串中找出 `needle` 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  `-1` 。
 
-* algorithms
-* Easy (40.34%)
-* Likes:    1141
-* Dislikes: -
-* Total Accepted:    511.2K
-* Total Submissions: 1.3M
-* Testcase Example:  '"hello"\n"ll"'
-* Source Code:       tmp/28.implement-strstr.rs
+说明：
 
-<p>实现 <a href="https://baike.baidu.com/item/strstr/811469" target="_blank">strStr()</a> 函数。</p>
+当 `needle` 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
 
-<p>给你两个字符串 <code>haystack</code> 和 <code>needle</code> ，请你在 <code>haystack</code> 字符串中找出 <code>needle</code> 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  <code>-1</code><strong> </strong>。</p>
+对于本题而言，当 `needle` 是空字符串时我们应当返回 0 。这与 C 语言的 [strstr()](https://baike.baidu.com/item/strstr/811469) 以及 Java 的 [indexOf()](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#indexOf(java.lang.String)) 定义相符。
 
-<p> </p>
+示例 1：
 
-<p><strong>说明：</strong></p>
+```txt
+输入：haystack = "hello", needle = "ll"
+输出：2
+```
 
-<p>当 <code>needle</code> 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。</p>
+示例 2：
 
-<p>对于本题而言，当 <code>needle</code> 是空字符串时我们应当返回 0 。这与 C 语言的 <a href="https://baike.baidu.com/item/strstr/811469" target="_blank">strstr()</a> 以及 Java 的 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#indexOf(java.lang.String)" target="_blank">indexOf()</a> 定义相符。</p>
+```txt
+输入：haystack = "aaaaa", needle = "bba"
+输出：-1
+```
 
-<p> </p>
+示例 3：
 
-<p><strong>示例 1：</strong></p>
+```txt
+输入：haystack = "", needle = ""
+输出：0
+```
 
-<pre>
-<strong>输入：</strong>haystack = "hello", needle = "ll"
-<strong>输出：</strong>2
-</pre>
+提示：
 
-<p><strong>示例 2：</strong></p>
-
-<pre>
-<strong>输入：</strong>haystack = "aaaaa", needle = "bba"
-<strong>输出：</strong>-1
-</pre>
-
-<p><strong>示例 3：</strong></p>
-
-<pre>
-<strong>输入：</strong>haystack = "", needle = ""
-<strong>输出：</strong>0
-</pre>
-
-<p> </p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>0 <= haystack.length, needle.length <= 5 * 10<sup>4</sup></code></li>
-	<li><code>haystack</code> 和 <code>needle</code> 仅由小写英文字符组成</li>
-</ul>
-
+- `0 <= haystack.length, needle.length <= 5 * 10^4`
+- `haystack` 和 `needle` 仅由小写英文字符组成

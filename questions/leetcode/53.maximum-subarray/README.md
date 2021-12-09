@@ -1,58 +1,36 @@
-[53] 最大子数组和  
+# 53.最大子数组和
 
-https://leetcode-cn.com/problems/maximum-subarray/description/
+<https://leetcode-cn.com/problems/maximum-subarray/description/>
 
-Tags:   algorithms   bloomberg   linkedin   microsoft   array   divide-and-conquer   dynamic-programming 
+给你一个整数数组`nums`，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+子数组是数组中的一个连续部分。
 
-* algorithms
-* Easy (55.33%)
-* Likes:    4068
-* Dislikes: -
-* Total Accepted:    769.8K
-* Total Submissions: 1.4M
-* Testcase Example:  '[-2,1,-3,4,-1,2,1,-5,4]'
-* Source Code:       53.maximum-subarray.rs
+示例 1：
 
-<p>给你一个整数数组 <code>nums</code> ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+```txt
+输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+输出：6
+解释：连续子数组[4,-1,2,1]的和最大为6 。
+```
 
-<p><strong>子数组 </strong>是数组中的一个连续部分。</p>
+示例 2：
 
-<p>&nbsp;</p>
+```txt
+输入：nums = [1]
+输出：1
+```
 
-<p><strong>示例 1：</strong></p>
+示例 3：
 
-<pre>
-<strong>输入：</strong>nums = [-2,1,-3,4,-1,2,1,-5,4]
-<strong>输出：</strong>6
-<strong>解释：</strong>连续子数组&nbsp;[4,-1,2,1] 的和最大，为&nbsp;6 。
-</pre>
+```txt
+输入：nums = [5,4,-1,7,8]
+输出：23
+```
 
-<p><strong>示例 2：</strong></p>
+提示：
 
-<pre>
-<strong>输入：</strong>nums = [1]
-<strong>输出：</strong>1
-</pre>
+- $1 \le nums.length \le 10^5$
+- $-10^4 \le nums[i] \le 10^4$
 
-<p><strong>示例 3：</strong></p>
-
-<pre>
-<strong>输入：</strong>nums = [5,4,-1,7,8]
-<strong>输出：</strong>23
-</pre>
-
-<p>&nbsp;</p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
-	<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>
-</ul>
-
-<p>&nbsp;</p>
-
-<p><strong>进阶：</strong>如果你已经实现复杂度为 <code>O(n)</code> 的解法，尝试使用更为精妙的 <strong>分治法</strong> 求解。</p>
-
+进阶：如果你已经实现复杂度为$O(n)$的解法，尝试使用更为精妙的分治法求解。

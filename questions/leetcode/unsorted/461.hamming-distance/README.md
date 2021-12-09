@@ -1,50 +1,30 @@
-[461] 汉明距离  
+# 461.汉明距离
 
-https://leetcode-cn.com/problems/hamming-distance/description/
+<https://leetcode-cn.com/problems/hamming-distance/description/>
 
-Tags:   algorithms   facebook   bit-manipulation 
+两个整数之间的 [汉明距离](https://baike.baidu.com/item/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB) 指的是这两个数字对应二进制位不同的位置的数目。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+给你两个整数 `x` 和 `y`，计算并返回它们之间的汉明距离。
 
-* algorithms
-* Easy (81.32%)
-* Likes:    540
-* Dislikes: -
-* Total Accepted:    178.1K
-* Total Submissions: 219K
-* Testcase Example:  '1\n4'
-* Source Code:       tmp/461.hamming-distance.rs
+示例 1：
 
-<p>两个整数之间的 <a href="https://baike.baidu.com/item/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB">汉明距离</a> 指的是这两个数字对应二进制位不同的位置的数目。</p>
-
-<p>给你两个整数 <code>x</code> 和 <code>y</code>，计算并返回它们之间的汉明距离。</p>
-
-<p> </p>
-
-<p><strong>示例 1：</strong></p>
-
-<pre>
-<strong>输入：</strong>x = 1, y = 4
-<strong>输出：</strong>2
-<strong>解释：</strong>
+```txt
+输入：x = 1, y = 4
+输出：2
+解释：
 1   (0 0 0 1)
 4   (0 1 0 0)
        ↑   ↑
 上面的箭头指出了对应二进制位不同的位置。
-</pre>
+```
 
-<p><strong>示例 2：</strong></p>
+示例 2：
 
-<pre>
-<strong>输入：</strong>x = 3, y = 1
-<strong>输出：</strong>1
-</pre>
+```txt
+输入：x = 3, y = 1
+输出：1
+```
 
-<p> </p>
+提示：
 
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>0 <= x, y <= 2<sup>31</sup> - 1</code></li>
-</ul>
-
+- `0 <= x, y <= 2^31 - 1`

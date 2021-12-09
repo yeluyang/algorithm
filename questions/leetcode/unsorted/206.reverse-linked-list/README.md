@@ -1,58 +1,35 @@
-[206] 反转链表  
+# 206.反转链表
 
-https://leetcode-cn.com/problems/reverse-linked-list/description/
+<https://leetcode-cn.com/problems/reverse-linked-list/description/>
 
-Tags:   algorithms   adobe   amazon   apple   bloomberg   facebook   microsoft   snapchat   twitter   uber   yahoo   yelp   zenefits   linked-list 
+给你单链表的头节点 `head` ，请你反转链表，并返回反转后的链表。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+示例 1：
+![rev1ex1.jpg](https://assets.leetcode.com/uploads/2021/02/19/rev1ex1.jpg)
 
-* algorithms
-* Easy (72.40%)
-* Likes:    2136
-* Dislikes: -
-* Total Accepted:    784.3K
-* Total Submissions: 1.1M
-* Testcase Example:  '[1,2,3,4,5]'
-* Source Code:       tmp/206.reverse-linked-list.rs
+```txt
+输入：head = [1,2,3,4,5]
+输出：[5,4,3,2,1]
+```
 
-给你单链表的头节点 <code>head</code> ，请你反转链表，并返回反转后的链表。
-<div class="original__bRMd">
-<div>
-<p> </p>
+示例 2：
+![rev1ex2.jpg](https://assets.leetcode.com/uploads/2021/02/19/rev1ex2.jpg)
 
-<p><strong>示例 1：</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/rev1ex1.jpg" style="width: 542px; height: 222px;" />
-<pre>
-<strong>输入：</strong>head = [1,2,3,4,5]
-<strong>输出：</strong>[5,4,3,2,1]
-</pre>
+```txt
+输入：head = [1,2]
+输出：[2,1]
+```
 
-<p><strong>示例 2：</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/rev1ex2.jpg" style="width: 182px; height: 222px;" />
-<pre>
-<strong>输入：</strong>head = [1,2]
-<strong>输出：</strong>[2,1]
-</pre>
+示例 3：
 
-<p><strong>示例 3：</strong></p>
+```txt
+输入：head = []
+输出：[]
+```
 
-<pre>
-<strong>输入：</strong>head = []
-<strong>输出：</strong>[]
-</pre>
+提示：
 
-<p> </p>
+- 链表中节点的数目范围是 `[0, 5000]`
+- `-5000 <= Node.val <= 5000`
 
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li>链表中节点的数目范围是 <code>[0, 5000]</code></li>
-	<li><code>-5000 <= Node.val <= 5000</code></li>
-</ul>
-
-<p> </p>
-
-<p><strong>进阶：</strong>链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？</p>
-</div>
-</div>
-
+进阶：链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？

@@ -1,51 +1,32 @@
-[278] 第一个错误的版本  
+# 278.第一个错误的版本
 
-https://leetcode-cn.com/problems/first-bad-version/description/
+<https://leetcode-cn.com/problems/first-bad-version/description/>
 
-Tags:   algorithms   facebook   binary-search 
+你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。
 
-Langs:  c   cpp   csharp   golang   java   javascript   kotlin   php   python   python3   ruby   rust   scala   swift   typescript 
+假设你有 `n` 个版本 `[1, 2, ..., n]`，你想找出导致之后所有版本出错的第一个错误的版本。
 
-* algorithms
-* Easy (45.28%)
-* Likes:    498
-* Dislikes: -
-* Total Accepted:    220.7K
-* Total Submissions: 487.5K
-* Testcase Example:  '5\n4'
-* Source Code:       278.first-bad-version.rs
+你可以通过调用 `bool isBadVersion(version)` 接口来判断版本号 `version` 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。
 
-<p>你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。</p>
+示例 1：
 
-<p>假设你有 <code>n</code> 个版本 <code>[1, 2, ..., n]</code>，你想找出导致之后所有版本出错的第一个错误的版本。</p>
+```txt
+输入：n = 5, bad = 4
+输出：4
+解释：
+调用 isBadVersion(3) -> false
+调用 isBadVersion(5) -> true
+调用 isBadVersion(4) -> true
+所以，4 是第一个错误的版本。
+```
 
-<p>你可以通过调用 <code>bool isBadVersion(version)</code> 接口来判断版本号 <code>version</code> 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。</p>
- 
+示例 2：
 
-<p><strong>示例 1：</strong></p>
+```txt
+输入：n = 1, bad = 1
+输出：1
+```
 
-<pre>
-<strong>输入：</strong>n = 5, bad = 4
-<strong>输出：</strong>4
-<strong>解释：</strong>
-<code>调用 isBadVersion(3) -> false 
-调用 isBadVersion(5) -> true 
-调用 isBadVersion(4) -> true</code>
-<code>所以，4 是第一个错误的版本。</code>
-</pre>
+提示：
 
-<p><strong>示例 2：</strong></p>
-
-<pre>
-<strong>输入：</strong>n = 1, bad = 1
-<strong>输出：</strong>1
-</pre>
-
-<p> </p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>1 <= bad <= n <= 2<sup>31</sup> - 1</code></li>
-</ul>
-
+- `1 <= bad <= n <= 2^31 - 1`

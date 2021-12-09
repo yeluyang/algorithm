@@ -1,58 +1,39 @@
-[34] 在排序数组中查找元素的第一个和最后一个位置  
+# 34.在排序数组中查找元素的第一个和最后一个位置
 
-https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/
+<https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/>
 
-Tags:   algorithms   linkedin   array   binary-search 
+给定一个按照升序排列的整数数组 `nums`，和一个目标值 `target`。找出给定目标值在数组中的开始位置和结束位置。
 
-Langs:  c   cpp   csharp   elixir   erlang   golang   java   javascript   kotlin   php   python   python3   racket   ruby   rust   scala   swift   typescript 
+如果数组中不存在目标值 `target`，返回 `[-1, -1]`。
 
-* algorithms
-* Medium (42.28%)
-* Likes:    1326
-* Dislikes: -
-* Total Accepted:    385.3K
-* Total Submissions: 911.4K
-* Testcase Example:  '[5,7,7,8,8,10]\n8'
-* Source Code:       34.find-first-and-last-position-of-element-in-sorted-array.rs
+进阶：
 
-<p>给定一个按照升序排列的整数数组 <code>nums</code>，和一个目标值 <code>target</code>。找出给定目标值在数组中的开始位置和结束位置。</p>
+- 你可以设计并实现时间复杂度为 $O(\log_2n)$ 的算法解决此问题吗？
 
-<p>如果数组中不存在目标值 <code>target</code>，返回 <code>[-1, -1]</code>。</p>
+示例 1：
 
-<p><strong>进阶：</strong></p>
+```txt
+输入：nums = [5,7,7,8,8,10], target = 8
+输出：[3,4]
+```
 
-<ul>
-	<li>你可以设计并实现时间复杂度为 <code>O(log n)</code> 的算法解决此问题吗？</li>
-</ul>
+示例 2：
 
-<p> </p>
+```txt
+输入：nums = [5,7,7,8,8,10], target = 6
+输出：[-1,-1]
+```
 
-<p><strong>示例 1：</strong></p>
+示例 3：
 
-<pre>
-<strong>输入：</strong>nums = [<code>5,7,7,8,8,10]</code>, target = 8
-<strong>输出：</strong>[3,4]</pre>
+```txt
+输入：nums = [], target = 0
+输出：[-1,-1]
+```
 
-<p><strong>示例 2：</strong></p>
+提示：
 
-<pre>
-<strong>输入：</strong>nums = [<code>5,7,7,8,8,10]</code>, target = 6
-<strong>输出：</strong>[-1,-1]</pre>
-
-<p><strong>示例 3：</strong></p>
-
-<pre>
-<strong>输入：</strong>nums = [], target = 0
-<strong>输出：</strong>[-1,-1]</pre>
-
-<p> </p>
-
-<p><strong>提示：</strong></p>
-
-<ul>
-	<li><code>0 <= nums.length <= 10<sup>5</sup></code></li>
-	<li><code>-10<sup>9</sup> <= nums[i] <= 10<sup>9</sup></code></li>
-	<li><code>nums</code> 是一个非递减数组</li>
-	<li><code>-10<sup>9</sup> <= target <= 10<sup>9</sup></code></li>
-</ul>
-
+- $0 \le nums.length \le 10^5$
+- $-10^9 \le nums[i] \le 10^9$
+- `nums` 是一个非递减数组
+- $-10^9 \le target \le 10^9$
