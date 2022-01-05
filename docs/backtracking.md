@@ -17,3 +17,6 @@
 
 - [17.电话号码的字母组合](questions/leetcode/17.letter-combinations-of-a-phone-number/README.md)
 - [22.括号生成](questions/leetcode/22.generate-parentheses/README.md)
+- [46.全排列](questions/leetcode/46.permutations/README.md)
+- [78.子集](questions/leetcode/78.subsets/README.md)
+- [79.单词搜索](questions/leetcode/79.word-search/README.md)
