@@ -1,0 +1,6 @@
+VSCODE_EXTENSIONS_DIR=${HOME}/.vscode-server/extensions
+LEETCODE_BIN_VERSION=0.18.0
+LEETCODE_BIN_DIR=${VSCODE_EXTENSIONS_DIR}/leetcode.vscode-leetcode-${LEETCODE_BIN_VERSION}/node_modules/vsc-leetcode-cli/bin
+
+CODE_LANGS=(rust golang c)
+CODE_EXTS=(rs go c)
