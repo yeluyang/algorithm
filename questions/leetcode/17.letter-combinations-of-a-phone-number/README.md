@@ -44,15 +44,65 @@
 
 - 【TODO】TODO
 
-### TODO
+### 回溯法
 
 分析
 
-- 【TODO】
+- 【回溯法】题目不能通过简单遍历解决
+  - 决策分支：
+    - 策略集合：当前处理的输入号码对应有几个字母就有几种选择策略
+    - 决策条件：当前处理的输入号码对应的各决策分支没有前提条件
+  - 决策路径：
+    - 终点叶子：输入号码数组为空时即为回溯终点、决策树叶子节点
+    - 结果记录：每次选择时输入当前选择的字母到缓冲区，到达终点叶子时，缓冲区内容就是完整的决策路径，将其记录到最终结果
+  - 回溯撤销：每次递归回溯回来后，从缓冲区删除刚刚插入的选择
 
 实现
 
-```TODO
+```rust
+fn letter_combinations(digits: String) -> Vec<String> {
+    let alpha = HashMap::<_, _>::from_iter([
+        (b'2', "abc".to_owned()),
+        (b'3', "def".to_owned()),
+        (b'4', "ghi".to_owned()),
+        (b'5', "jkl".to_owned()),
+        (b'6', "mno".to_owned()),
+        (b'7', "pqrs".to_owned()),
+        (b'8', "tuv".to_owned()),
+        (b'9', "wxyz".to_owned()),
+    ]);
+    let mut ret = Vec::with_capacity(3usize.pow(digits.len() as u32));
+    backtracking(
+        &digits,
+        &alpha,
+        &mut ret,
+        &mut String::with_capacity(digits.len()),
+    );
+    ret
+}
+
+fn backtracking(
+    digits: &str,
+    alpha: &HashMap<u8, String>,
+    result: &mut Vec<String>,
+    buf: &mut String,
+) {
+    if digits.is_empty() {
+        // 终点叶子
+        if !buf.is_empty() {
+            // 结果记录
+            result.push(buf.clone()) // 此时buf包含完整的决策路径
+        }
+    } else {
+        for c in alpha.get(&digits.as_bytes()[0]).unwrap().chars() {
+            // 决策分支
+            buf.push(c);
+            backtracking(&digits[1..], alpha, result, buf);
+            // 回溯撤销
+            buf.pop();
+        }
+    }
+}
 ```
 
 复杂度
