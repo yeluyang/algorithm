@@ -40,21 +40,39 @@
 
 分析
 
-- 【策略动态集合】
-
-  输入数据本身就是策略集合，决策树上每向下深入一层，就将当前集合首个元素之后的元素作为下一层的策略集
-
-- 【回溯撤销】
-
-  当前层次如果执行了选择，就从结果buffer中弹出被选择的元素
-
-- 【决策树叶子】
-
-  透传结果buffer，每一层可以选择元素或不选择元素，选择元素时就将策略集首元素压入buffer，到了叶子节点，将整个策略buffer内容保存记录
+- 【回溯法】
+  - 决策分支
+    - 策略集合：可选策略集合是混合的，对当前遍历的元素，只有“选中”或“不选”两种策略
+    - 决策条件：无条件决策
+  - 决策路径
+    - 终点叶子：当遍历完所有元素时，就是到达了终点叶子
+    - 结果记录：每次选择策略时，选择了“选中”就将元素插入缓冲区，选择了“不选”就插入缓冲区。到达叶子后，整个缓冲区记录到最终结果
+  - 决策回滚：
+    - 被回溯的策略如果是“选中”，则从缓冲区删除刚刚插入的元素
 
 实现
 
-```TODO
+```rust
+fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
+    let mut nums = nums;
+    let mut result = Vec::new(); // 最终结果
+    let mut buf = Vec::new(); // 缓冲区
+    backtracking(nums.as_mut_slice(), &mut result, &mut buf);
+    result
+}
+fn backtracking(nums: &mut [i32], result: &mut Vec<Vec<i32>>, buf: &mut Vec<i32>) {
+    if nums.is_empty() {
+        // 终点叶子
+        result.push(buf.clone()); // 结果记录
+    } else {
+        // 决策分支
+        backtracking(&mut nums[1..], result, buf);
+        // 决策分支
+        buf.push(nums[0]);
+        backtracking(&mut nums[1..], result, buf);
+        buf.pop(); // 决策回滚
+    }
+}
 ```
 
 复杂度

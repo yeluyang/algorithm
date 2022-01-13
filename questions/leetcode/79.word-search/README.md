@@ -54,13 +54,60 @@
 
 分析
 
-- 【TODO】
-
-  遍历矩阵每一个元素，假设以该元素为起点去寻找目标序列。如果当前元素能够和目标序列匹配，就将当前元素修改为空，然后寻找周围元素有无匹配的，有则以相邻匹配元素进行递归，无则恢复被修改的当前元素，结束递归去遍历下一矩阵元素
+- 【回溯法】
+  - 决策分支
+    - 策略集合: 策略集合是混合的, 可选策略是当前遍历矩阵元素的上下左右四个选择
+    - 策略条件: 每个决策的前提条件是被选中元素等于下一个寻找的字符
+  - 决策路径
+    - 终点叶子: 当要寻找的字符集合为空时, 就到了终点叶子
+    - 结果记录: 没有决策序列要记录, 直接返回是否存在子序列的布尔值即可
+  - 决策回滚: 每次决策时都把当前元素修改为特殊值, 决策回溯后恢复原值
 
 实现
 
-```TODO
+```rust
+fn exist(board: Vec<Vec<char>>, word: String) -> bool {
+    let mut board = board;
+    let cs = word.as_bytes();
+    for i in 0..board.len() {
+        for j in 0..board[i].len() {
+            if board[i][j] == cs[0] as char && backtracking(&mut board, &cs[1..], i, j) {
+                return true;
+            }
+        }
+    }
+    false
+}
+fn backtracking(board: &mut Vec<Vec<char>>, word: &[u8], i: usize, j: usize) -> bool {
+    if word.is_empty() {
+        // 终点叶子
+        true
+    } else {
+        let tmp = board[i][j];
+        board[i][j] = '\0';
+        // 决策分支
+        let ret = if (i > 0 // 决策条件
+            && board[i - 1][j] == word[0] as char
+            && backtracking(board, &word[1..], i - 1, j)) // 策略集合
+            || (i < board.len() - 1 // 决策条件
+                && board[i + 1][j] == word[0] as char
+                && backtracking(board, &word[1..], i + 1, j)) // 策略集合
+            || (j > 0 // 决策条件
+                && board[i][j - 1] == word[0] as char
+                && backtracking(board, &word[1..], i, j - 1)) // 策略集合
+            || (j < board[i].len() - 1 // 决策条件
+                && board[i][j + 1] == word[0] as char
+                && backtracking(board, &word[1..], i, j + 1)) // 策略集合
+        {
+            true
+        } else {
+            false
+        };
+        // 决策回滚
+        board[i][j] = tmp;
+        ret
+    }
+}
 ```
 
 复杂度
