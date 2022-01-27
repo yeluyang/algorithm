@@ -21,7 +21,7 @@ class Convertor(md.MarkdownConverter):
 def format(fpath: str):
     log.debug("formatting %s", fpath)
     convertor = Convertor(strip=[
-        'strong', 'p', ], bullets='-', code_language='text')
+        'strong', 'p', ], bullets='-', code_language='text', sup_symbol='^')
     with open(fpath) as fp:
         lines = fp.readlines()
     if len(lines) == 0:
