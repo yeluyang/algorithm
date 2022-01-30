@@ -3,6 +3,7 @@ use std::{cell::RefCell, collections::VecDeque, rc::Rc};
 extern crate log;
 
 pub mod solution;
+mod tests;
 
 // Definition for a binary tree node.
 #[derive(Debug, PartialEq, Eq)]

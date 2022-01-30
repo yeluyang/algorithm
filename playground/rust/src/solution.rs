@@ -9,9 +9,11 @@ pub fn solution() {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::tests::*;
 
     #[test]
     fn test_solution() {
+        init();
         unimplemented!();
     }
 }
