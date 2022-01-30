@@ -95,7 +95,23 @@
 
 实现
 
-```TODO
+```rust
+fn is_happy(n: i32) -> bool {
+    let mut s = std::collections::HashSet::new();
+    let mut n = n as u32;
+    while n != 1 && s.insert(n) {
+        n = square_sum(n);
+    }
+    n == 1
+}
+fn square_sum(mut n: u32) -> u32 {
+    let mut ret = 0;
+    while n > 0 {
+        ret += (n % 10).pow(2);
+        n /= 10;
+    }
+    ret
+}
 ```
 
 复杂度
@@ -135,19 +151,33 @@
 
   总而言之, 非快乐数一定是因为位平方和计算链中有小于243的非快乐数.
 
-  因此我们可以提前算出243以内有哪些非快乐数并硬编码成映射表, 此后任意长度的数都可以在位平方和计算后查表来判断是否位快乐数.
-
-  编程计算可知, 243以内的非快乐数恰好在同一位平方和计算链条内:
+  因此我们可以提前算出243以内有哪些非快乐数并硬编码成映射表, 此后任意长度的数都可以在位平方和计算后查表来判断是否位快乐数. 编程计算可知, 243以内的非快乐数还是比较多的, 但是进一步检查这些非快乐数的循环周期会发现, 其实只有一个循环周期:
 
   $$
   4 \rightarrow 16 \rightarrow 37 \rightarrow 58 \rightarrow 89 \rightarrow 145 \rightarrow 42 \rightarrow 20 \rightarrow 4
   $$
 
-  综上, 任意数本身或在计算位平方和时出现以上数字的任一个, 都必然是非快乐数
+  综上, 任意数本身或在计算位平方和时出现以上循环周期中数字的任一个, 都必然是非快乐数
 
 实现
 
-```TODO
+```rust
+fn is_happy(n: i32) -> bool {
+    let s = std::collections::HashSet::<u32>::from_iter(vec![4, 16, 20, 37, 42, 58, 89, 145]);
+    let mut n = n as u32;
+    while n != 1 && !s.contains(&n) {
+        n = square_sum(n);
+    }
+    n == 1
+}
+fn square_sum(mut n: u32) -> u32 {
+    let mut ret = 0;
+    while n > 0 {
+        ret += (n % 10).pow(2);
+        n /= 10;
+    }
+    ret
+}
 ```
 
 复杂度

@@ -58,6 +58,21 @@
 
 // @lc code=start
 impl Solution {
-    pub fn is_happy(n: i32) -> bool {}
+    pub fn is_happy(n: i32) -> bool {
+        let mut s = std::collections::HashSet::new();
+        let mut n = n as u32;
+        while n != 1 && s.insert(n) {
+            n = square_sum(n);
+        }
+        n == 1
+    }
+}
+fn square_sum(mut n: u32) -> u32 {
+    let mut ret = 0;
+    while n > 0 {
+        ret += (n % 10).pow(2);
+        n /= 10;
+    }
+    ret
 }
 // @lc code=end
