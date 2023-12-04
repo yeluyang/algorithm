@@ -1,19 +1,25 @@
-pub fn solution() {
-    // call solution here
-    println!("{:?}", unimplemented!());
-}
+pub struct Solution {}
 
-// impl solution here
+impl Solution {
+    pub fn solution() {
+        // call solution here
+        println!("{:?}", unimplemented!());
+    }
+
+    // impl solution here
+}
 
 // imple test case for solution here
 #[cfg(test)]
 mod tests {
-    use super::*;
     use crate::tests::*;
+
+    use super::*;
 
     #[test]
     fn test_solution() {
         init();
+        // test solution here
         unimplemented!();
     }
 }
