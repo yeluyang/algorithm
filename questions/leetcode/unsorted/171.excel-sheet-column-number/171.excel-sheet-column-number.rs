@@ -63,6 +63,12 @@
 
 // @lc code=start
 impl Solution {
-    pub fn title_to_number(column_title: String) -> i32 {}
+    pub fn title_to_number(column_title: String) -> i32 {
+        let mut result = 0i32;
+        column_title.chars().rev().enumerate().for_each(|(n, c)| {
+            result += (26i32.pow(n as u32)) * (c as i32 - 64i32);
+        });
+        result
+    }
 }
 // @lc code=end
