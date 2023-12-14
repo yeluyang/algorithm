@@ -52,5 +52,43 @@
 // @lc code=start
 impl Solution {
     pub fn divide(dividend: i32, divisor: i32) -> i32 {}
+    const NEGATIVE_MASK: i32 = 0b10000000__00000000__00000000__00000000u32 as i32;
+    pub fn multiple(num: i32, times: i32) -> i32 {
+        let sig = if num & Self::NEGATIVE_MASK == times & Self::NEGATIVE_MASK {
+            0
+        } else {
+            Self::NEGATIVE_MASK
+        };
+        let num = if num < 0 {
+            !(num as u32) + 1
+        } else {
+            num as u32
+        };
+        let times = if times < 0 {
+            !(times as u32) + 1
+        } else {
+            times as u32
+        };
+
+        let mut x = num as u32;
+        let mut m = 1u32;
+
+        let mut r = 0;
+        for _ in 0..32 {
+            if m > times {
+                break;
+            }
+            if times & m != 0 {
+                r += x;
+            }
+            x += x;
+            m <<= 1;
+        }
+        (if sig == 0 {
+            r // positive
+        } else {
+            !(r - 1) // negative
+        }) as i32
+    }
 }
 // @lc code=end
