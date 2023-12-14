@@ -9,7 +9,7 @@ impl Solution {
     // impl solution here
 }
 
-// imple test case for solution here
+// impl test case for solution here
 #[cfg(test)]
 mod tests {
     use crate::tests::*;
