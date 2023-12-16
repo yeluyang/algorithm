@@ -1,5 +1,6 @@
 use std::{cell::RefCell, collections::VecDeque, rc::Rc};
 
+#[macro_use]
 extern crate log;
 
 pub mod solution;
@@ -55,7 +56,7 @@ pub fn binary_tree_from(v: Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
             }
             i += 1;
         }
-        log::trace!("tree={:?}", root);
+        trace!("tree={:?}", root);
         root
     }
 }

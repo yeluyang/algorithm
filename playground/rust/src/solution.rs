@@ -1,11 +1,11 @@
-pub struct Solution {}
+pub fn solution() {
+    // call solution here
+    println!("{:?}", unimplemented!());
+}
+
+struct Solution {}
 
 impl Solution {
-    pub fn solution() {
-        // call solution here
-        println!("{:?}", unimplemented!());
-    }
-
     // impl solution here
 }
 
