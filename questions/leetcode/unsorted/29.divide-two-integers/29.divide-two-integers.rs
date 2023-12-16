@@ -51,61 +51,82 @@
 
 // @lc code=start
 impl Solution {
-    impl Solution {
-        const NEGATIVE_MASK: i32 = 0b10000000__00000000__00000000__00000000u32 as i32;
-        pub fn divide(dividend: i32, divisor: i32) -> i32 {
-            let positive = dividend & Self::NEGATIVE_MASK == divisor & Self::NEGATIVE_MASK;
-            let dividend = if dividend < 0 {
-                !(dividend as u32) + 1
-            } else {
-                dividend as u32
+    // impl solution here
+    const NEGATIVE_MASK: i32 = 0b10000000__00000000__00000000__00000000u32 as i32;
+    pub fn divide(dividend: i32, divisor: i32) -> i32 {
+        if divisor == 1 {
+            return dividend;
+        } else if divisor == i32::MIN || divisor == i32::MAX {
+            return match dividend == divisor {
+                true => 1,
+                false => 0,
             };
-            let divisor = if divisor < 0 {
-                !(divisor as u32) + 1
-            } else {
-                divisor as u32
-            };
-
-            let mut last_mid = 0;
-            let mut left = 0;
-            let mut right = dividend;
-            while left <= right {
-                let mid = (right - left) / 2 + left;
-                let r = Self::multiple(divisor, mid);
-                if r > dividend {
-                    right = mid - 1;
-                } else {
-                    last_mid = mid;
-                    if r == dividend {
-                        break;
-                    }
-                    left = mid + 1;
-                };
-            }
-            (if positive {
-                last_mid // positive
-            } else {
-                !(last_mid - 1) // negative
-            }) as i32
+        }
+        if dividend == 0 {
+            return 0;
+        } else if dividend == i32::MIN && divisor == -1 {
+            return i32::MAX;
         }
 
-        fn multiple(num: u32, times: u32) -> u32 {
-            let mut x = num;
-            let mut mask = 1u32;
+        let positive = dividend & Self::NEGATIVE_MASK == divisor & Self::NEGATIVE_MASK;
+        let dividend = if dividend.is_negative() {
+            !(dividend as u32) + 1
+        } else {
+            dividend as u32
+        };
+        let divisor = if divisor.is_negative() {
+            !(divisor as u32) + 1
+        } else {
+            divisor as u32
+        };
+        if dividend < divisor {
+            return 0;
+        } else if dividend == divisor {
+            return match positive {
+                true => 1,
+                false => -1,
+            };
+        }
 
-            let mut result = 0;
-            for _ in 0..32 {
-                if mask > times {
+        let mut last = 0;
+        let mut left = 0;
+        let mut right = dividend;
+        while left <= right {
+            let mid = ((right - left) >> 1) + left;
+            let r = Self::multiple(divisor, mid);
+            if r > dividend {
+                right = mid - 1;
+            } else {
+                last = mid;
+                if r == dividend {
                     break;
                 }
-                if times & mask != 0 {
-                    result += x;
-                }
-                x += x;
-                mask <<= 1;
-            }
-            result
+                left = mid + 1;
+            };
         }
+        (if positive {
+            last // positive
+        } else {
+            !(last - 1) // negative
+        }) as i32
+    }
+
+    fn multiple(num: u32, times: u32) -> u32 {
+        let mut x = num;
+        let mut mask = 1u32;
+
+        let mut result = 0;
+        for _ in 0..32 {
+            if mask > times {
+                break;
+            }
+            if times & mask != 0 {
+                result += x;
+            }
+            x += x;
+            mask <<= 1;
+        }
+        result
     }
 }
 // @lc code=end
