@@ -46,6 +46,39 @@
 
 // @lc code=start
 impl Solution {
-    pub fn spiral_order(matrix: Vec<Vec<i32>>) -> Vec<i32> {}
+    pub fn spiral_order(matrix: Vec<Vec<i32>>) -> Vec<i32> {
+        let rows = matrix.len();
+        let cols = matrix[0].len();
+        let mut cells = Vec::with_capacity(rows * cols);
+
+        let (mut left, mut top, mut right, mut bottom) = (0, 0, cols - 1, rows - 1);
+        while left <= right && top <= bottom {
+            // iter top margin
+            for j in left..=right {
+                cells.push(matrix[top][j]);
+            }
+            // iter right margin
+            for i in (top + 1)..=bottom {
+                cells.push(matrix[i][right]);
+            }
+            if left < right && top < bottom {
+                // iter bottom margin
+                for j in (left..=(right - 1)).rev() {
+                    cells.push(matrix[bottom][j]);
+                }
+                // iter left margin
+                for i in ((top + 1)..=(bottom - 1)).rev() {
+                    cells.push(matrix[i][left]);
+                }
+            }
+
+            left += 1;
+            top += 1;
+            right = right.saturating_sub(1);
+            bottom = bottom.saturating_sub(1);
+        }
+
+        cells
+    }
 }
 // @lc code=end
