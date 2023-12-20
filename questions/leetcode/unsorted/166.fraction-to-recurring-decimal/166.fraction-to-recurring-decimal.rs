@@ -57,6 +57,42 @@
 
 // @lc code=start
 impl Solution {
-    pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {}
+    pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
+        if numerator == 0 {
+            return "0".to_owned();
+        }
+
+        let mut result = match numerator.signum() == denominator.signum() {
+            true => String::default(), // positive
+            false => "-".to_owned(),   // negative
+        };
+
+        let denominator = denominator.unsigned_abs() as u64;
+        let mut numerator = numerator.unsigned_abs() as u64;
+
+        result.push_str(&(numerator / denominator).to_string());
+        numerator %= denominator;
+        if numerator != 0 {
+            result.push('.');
+        }
+
+        let mut remain_index_map = std::collections::HashMap::new();
+
+        while numerator != 0 && !remain_index_map.contains_key(&numerator) {
+            remain_index_map.insert(numerator, result.len());
+
+            numerator *= 10;
+            result.push_str(&(numerator / denominator).to_string());
+
+            numerator %= denominator;
+        }
+
+        if numerator != 0 {
+            result.insert(remain_index_map[&numerator], '(');
+            result.push(')');
+        }
+
+        result
+    }
 }
 // @lc code=end
