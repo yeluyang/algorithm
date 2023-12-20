@@ -51,82 +51,89 @@
 
 // @lc code=start
 impl Solution {
-    // impl solution here
-    const NEGATIVE_MASK: i32 = 0b10000000__00000000__00000000__00000000u32 as i32;
     pub fn divide(dividend: i32, divisor: i32) -> i32 {
-        if divisor == 1 {
-            return dividend;
-        } else if divisor == i32::MIN || divisor == i32::MAX {
-            return match dividend == divisor {
-                true => 1,
-                false => 0,
-            };
-        }
-        if dividend == 0 {
-            return 0;
-        } else if dividend == i32::MIN && divisor == -1 {
-            return i32::MAX;
-        }
-
-        let positive = dividend & Self::NEGATIVE_MASK == divisor & Self::NEGATIVE_MASK;
-        let dividend = if dividend.is_negative() {
-            !(dividend as u32) + 1
+        let is_positive = dividend.signum() == divisor.signum();
+        let dividend = if dividend.is_positive() {
+            -dividend
         } else {
-            dividend as u32
+            dividend
         };
-        let divisor = if divisor.is_negative() {
-            !(divisor as u32) + 1
+        let divisor = if divisor.is_positive() {
+            -divisor
         } else {
-            divisor as u32
+            divisor
         };
-        if dividend < divisor {
-            return 0;
-        } else if dividend == divisor {
-            return match positive {
-                true => 1,
-                false => -1,
-            };
-        }
 
-        let mut last = 0;
+        let mut quotient = 0;
         let mut left = 0;
-        let mut right = dividend;
+        let mut right = dividend.unsigned_abs();
         while left <= right {
             let mid = ((right - left) >> 1) + left;
-            let r = Self::multiple(divisor, mid);
-            if r > dividend {
-                right = mid - 1;
-            } else {
-                last = mid;
-                if r == dividend {
+            let checked = Self::check(dividend, divisor, mid);
+            println!(
+                "[{} : {}], mid={}, quotient={}, checked={}",
+                left, right, mid, quotient, checked
+            );
+            if checked {
+                quotient = mid;
+                if let Some(l) = mid.checked_add(1) {
+                    left = l;
+                } else {
                     break;
                 }
-                left = mid + 1;
+            } else {
+                if let Some(r) = mid.checked_sub(1) {
+                    right = r;
+                } else {
+                    break;
+                }
             };
         }
-        (if positive {
-            last // positive
-        } else {
-            !(last - 1) // negative
-        }) as i32
+        match (is_positive, quotient >= i32::MIN.unsigned_abs()) {
+            (true, true) => i32::MAX,
+            (true, false) => quotient as i32,
+            (false, true) => i32::MIN,
+            (false, false) => -(quotient as i32),
+        }
     }
 
-    fn multiple(num: u32, times: u32) -> u32 {
-        let mut x = num;
-        let mut mask = 1u32;
+    fn check(dividend: i32, divisor: i32, quotient: u32) -> bool {
+        println!(
+            "dividend={}, divisor={}, quotient={}",
+            dividend, divisor, quotient
+        );
+        let mut acc = divisor;
+        let mut quotient = quotient;
 
-        let mut result = 0;
-        for _ in 0..32 {
-            if mask > times {
-                break;
+        let mut product: i32 = 0;
+        while quotient > 0 {
+            if quotient & 0b1 != 0 {
+                if let Some(p) = product.checked_add(acc) {
+                    if product < dividend {
+                        return false;
+                    }
+                    product = p;
+                } else {
+                    return false;
+                };
             }
-            if times & mask != 0 {
-                result += x;
+            println!(
+                "quotient={:#033b}, acc={}, product={}",
+                quotient, acc, product
+            );
+
+            if let Some(a) = acc.checked_add(acc) {
+                if a < dividend {
+                    return false;
+                }
+                acc = a;
+            } else {
+                return false;
             }
-            x += x;
-            mask <<= 1;
+
+            quotient >>= 1;
         }
-        result
+        true
     }
 }
 // @lc code=end
