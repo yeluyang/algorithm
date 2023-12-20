@@ -70,10 +70,6 @@ impl Solution {
         while left <= right {
             let mid = ((right - left) >> 1) + left;
             let checked = Self::check(dividend, divisor, mid);
-            println!(
-                "[{} : {}], mid={}, quotient={}, checked={}",
-                left, right, mid, quotient, checked
-            );
             if checked {
                 quotient = mid;
                 if let Some(l) = mid.checked_add(1) {
@@ -98,10 +94,6 @@ impl Solution {
     }
 
     fn check(dividend: i32, divisor: i32, quotient: u32) -> bool {
-        println!(
-            "dividend={}, divisor={}, quotient={}",
-            dividend, divisor, quotient
-        );
         let mut acc = divisor;
         let mut quotient = quotient;
 
@@ -109,7 +101,7 @@ impl Solution {
         while quotient > 0 {
             if quotient & 0b1 != 0 {
                 if let Some(p) = product.checked_add(acc) {
-                    if product < dividend {
+                    if p < dividend {
                         return false;
                     }
                     product = p;
@@ -117,10 +109,11 @@ impl Solution {
                     return false;
                 };
             }
-            println!(
-                "quotient={:#033b}, acc={}, product={}",
-                quotient, acc, product
-            );
+
+            quotient >>= 1;
+            if quotient == 0 {
+                return true;
+            }
 
             if let Some(a) = acc.checked_add(acc) {
                 if a < dividend {
@@ -130,8 +123,6 @@ impl Solution {
             } else {
                 return false;
             }
-
-            quotient >>= 1;
         }
         true
     }
