@@ -51,9 +51,83 @@
 
 // @lc code=start
 impl Solution {
+    // pub fn divide(dividend: i32, divisor: i32) -> i32 {
+    //     let is_positive = dividend.signum() == divisor.signum();
+    //     let dividend = if dividend.is_positive() {
+    //         -dividend
+    //     } else {
+    //         dividend
+    //     };
+    //     let divisor = if divisor.is_positive() {
+    //         -divisor
+    //     } else {
+    //         divisor
+    //     };
+
+    //     let mut quotient = 0;
+    //     let mut left = 0;
+    //     let mut right = dividend.unsigned_abs();
+    //     while left <= right {
+    //         let mid = ((right - left) >> 1) + left;
+    //         let checked = Self::check(dividend, divisor, mid);
+    //         if checked {
+    //             quotient = mid;
+    //             if let Some(l) = mid.checked_add(1) {
+    //                 left = l;
+    //             } else {
+    //                 break;
+    //             }
+    //         } else {
+    //             if let Some(r) = mid.checked_sub(1) {
+    //                 right = r;
+    //             } else {
+    //                 break;
+    //             }
+    //         };
+    //     }
+    //     match (is_positive, quotient >= i32::MIN.unsigned_abs()) {
+    //         (true, true) => i32::MAX,
+    //         (true, false) => quotient as i32,
+    //         (false, true) => i32::MIN,
+    //         (false, false) => -(quotient as i32),
+    //     }
+    // }
+    // fn check(dividend: i32, divisor: i32, quotient: u32) -> bool {
+    //     let mut acc = divisor;
+    //     let mut quotient = quotient;
+
+    //     let mut product: i32 = 0;
+    //     while quotient > 0 {
+    //         if quotient & 0b1 != 0 {
+    //             if let Some(p) = product.checked_add(acc) {
+    //                 if p < dividend {
+    //                     return false;
+    //                 }
+    //                 product = p;
+    //             } else {
+    //                 return false;
+    //             };
+    //         }
+
+    //         quotient >>= 1;
+    //         if quotient == 0 {
+    //             return true;
+    //         }
+
+    //         if let Some(a) = acc.checked_add(acc) {
+    //             if a < dividend {
+    //                 return false;
+    //             }
+    //             acc = a;
+    //         } else {
+    //             return false;
+    //         }
+    //     }
+    //     true
+    // }
     pub fn divide(dividend: i32, divisor: i32) -> i32 {
         let is_positive = dividend.signum() == divisor.signum();
-        let dividend = if dividend.is_positive() {
+        let mut dividend = if dividend.is_positive() {
             -dividend
         } else {
             dividend
@@ -64,67 +138,33 @@ impl Solution {
             divisor
         };
 
-        let mut quotient = 0;
-        let mut left = 0;
-        let mut right = dividend.unsigned_abs();
-        while left <= right {
-            let mid = ((right - left) >> 1) + left;
-            let checked = Self::check(dividend, divisor, mid);
-            if checked {
-                quotient = mid;
-                if let Some(l) = mid.checked_add(1) {
-                    left = l;
-                } else {
+        let mut accs = vec![divisor];
+        for i in 1..32 {
+            let acc = accs.last().unwrap();
+            if let Some(acc) = acc.checked_add(*acc) {
+                if acc < dividend {
                     break;
                 }
+                accs.push(acc);
             } else {
-                if let Some(r) = mid.checked_sub(1) {
-                    right = r;
-                } else {
-                    break;
-                }
+                break;
             };
         }
+
+        let mut quotient = 0u32;
+        for (i, acc) in accs.iter().enumerate().rev() {
+            if acc >= &dividend {
+                quotient += 1u32 << i;
+                dividend -= acc;
+            }
+        }
+
         match (is_positive, quotient >= i32::MIN.unsigned_abs()) {
             (true, true) => i32::MAX,
             (true, false) => quotient as i32,
             (false, true) => i32::MIN,
             (false, false) => -(quotient as i32),
         }
-    }
-
-    fn check(dividend: i32, divisor: i32, quotient: u32) -> bool {
-        let mut acc = divisor;
-        let mut quotient = quotient;
-
-        let mut product: i32 = 0;
-        while quotient > 0 {
-            if quotient & 0b1 != 0 {
-                if let Some(p) = product.checked_add(acc) {
-                    if p < dividend {
-                        return false;
-                    }
-                    product = p;
-                } else {
-                    return false;
-                };
-            }
-
-            quotient >>= 1;
-            if quotient == 0 {
-                return true;
-            }
-
-            if let Some(a) = acc.checked_add(acc) {
-                if a < dividend {
-                    return false;
-                }
-                acc = a;
-            } else {
-                return false;
-            }
-        }
-        true
     }
 }
 // @lc code=end
