@@ -66,23 +66,55 @@
 
 // @lc code=start
 struct RandomizedSet {
-
+    map: std::collections::HashMap<i32, usize>,
+    vec: Vec<i32>,
 }
-
 
 /**
  * `&self` means the method takes an immutable reference.
  * If you need a mutable reference, change it to `&mut self` instead.
  */
 impl RandomizedSet {
+    fn new() -> Self {
+        Self {
+            map: std::collections::HashMap::new(),
+            vec: Vec::new(),
+        }
+    }
 
-    fn new() -> Self {}
+    fn insert(&mut self, val: i32) -> bool {
+        if self.map.contains_key(&val) {
+            false
+        } else {
+            self.vec.push(val);
+            self.map.insert(val, self.vec.len() - 1);
+            true
+        }
+    }
 
-    fn insert(&self, val: i32) -> bool {}
+    fn remove(&mut self, val: i32) -> bool {
+        if let Some(i) = self.map.remove(&val) {
+            if self.map.is_empty() || i == self.vec.len() - 1 {
+                self.vec.pop();
+            } else {
+                let last_index = self.vec.len() - 1;
+                self.vec[i] = self.vec[last_index];
+                self.vec.pop();
+                self.map.insert(self.vec[i], i);
+            }
+            true
+        } else {
+            false
+        }
+    }
 
-    fn remove(&self, val: i32) -> bool {}
-
-    fn get_random(&self) -> i32 {}
+    fn get_random(&self) -> i32 {
+        self.vec[std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos() as usize
+            % self.vec.len()]
+    }
 }
 
 /**
