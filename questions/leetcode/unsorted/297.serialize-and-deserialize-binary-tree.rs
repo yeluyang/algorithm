@@ -84,20 +84,89 @@
 // }
 use std::rc::Rc;
 use std::cell::RefCell;
-struct Codec {
-
-}
+struct Codec {}
 
 /**
  * `&self` means the method takes an immutable reference.
  * If you need a mutable reference, change it to `&mut self` instead.
  */
 impl Codec {
-    fn new() -> Self {}
+    fn new() -> Self {
+        Self {}
+    }
 
-    fn serialize(&self, root: Option<Rc<RefCell<TreeNode>>>) -> String {}
+    fn serialize(&self, root: Option<Rc<RefCell<TreeNode>>>) -> String {
+        let mut buff = vec![];
+        if let Some(root) = root {
+            buff.push(root.borrow().val.to_string());
+            Self::_serialize(&root, &mut buff);
+        };
+        "[".to_owned() + buff.join(",").trim_end_matches(",null") + "]"
+    }
+    fn _serialize(root: &Rc<RefCell<TreeNode>>, buff: &mut Vec<String>) {
+        buff.push(if let Some(n) = &root.borrow().left {
+            n.borrow().val.to_string()
+        } else {
+            "null".to_owned()
+        });
+        buff.push(if let Some(n) = &root.borrow().right {
+            n.borrow().val.to_string()
+        } else {
+            "null".to_owned()
+        });
 
-    fn deserialize(&self, data: String) -> Option<Rc<RefCell<TreeNode>>> {}
+        if let Some(left) = &root.borrow().left {
+            Self::_serialize(&left, buff);
+        };
+        if let Some(right) = &root.borrow().right {
+            Self::_serialize(&right, buff);
+        };
+    }
+
+    fn deserialize(&self, data: String) -> Option<Rc<RefCell<TreeNode>>> {
+        if data.is_empty() || &data == "[]" {
+            return None;
+        }
+
+        let mut data = data
+            .trim_start_matches('[')
+            .trim_end_matches(']')
+            .split(",")
+            .map(|v| match v {
+                "null" => None,
+                _ => Some(v.parse::<i32>().unwrap()),
+            })
+            .collect::<std::collections::VecDeque<_>>();
+
+        let root = Rc::new(RefCell::new(TreeNode::new(
+            data.pop_front().unwrap().unwrap(),
+        )));
+
+        Self::_deserialize(&root, &mut data);
+
+        Some(root)
+    }
+    fn _deserialize(
+        root: &Rc<RefCell<TreeNode>>,
+        que: &mut std::collections::VecDeque<Option<i32>>,
+    ) {
+        if que.is_empty() {
+            return;
+        }
+        if let Some(Some(v)) = que.pop_front() {
+            root.borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(v))));
+        };
+        if let Some(Some(v)) = que.pop_front() {
+            root.borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(v))));
+        };
+
+        if let Some(left) = &root.borrow().left {
+            Self::_deserialize(&left, que);
+        };
+        if let Some(right) = &root.borrow().right {
+            Self::_deserialize(&right, que);
+        };
+    }
 }
 
 /**
