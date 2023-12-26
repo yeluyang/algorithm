@@ -66,6 +66,28 @@ impl Solution {
         nums3: Vec<i32>,
         nums4: Vec<i32>,
     ) -> i32 {
+        let len = nums1.len();
+        let buf_len = len.pow(2);
+        let mut nums12 = std::collections::HashMap::with_capacity(buf_len);
+        let mut nums34 = Vec::with_capacity(buf_len);
+        for i in 0..len {
+            for j in 0..len {
+                let sum = nums1[i] + nums2[j];
+                if let Some(count) = nums12.get_mut(&sum) {
+                    *count += 1;
+                } else {
+                    nums12.insert(sum, 1);
+                }
+                nums34.push(nums3[i] + nums4[j]);
+            }
+        }
+        let mut result = 0i32;
+        for i in 0..buf_len {
+            if let Some(count) = nums12.get(&-nums34[i]) {
+                result += count;
+            };
+        }
+        result
     }
 }
 // @lc code=end
