@@ -53,6 +53,21 @@
 
 // @lc code=start
 impl Solution {
-    pub fn max_area(height: Vec<i32>) -> i32 {}
+    pub fn max_area(height: Vec<i32>) -> i32{
+        let mut i = 0usize;
+        let mut j = height.len() - 1;
+        let mut result = 0i32;
+        while i < j {
+            let area = std::cmp::min(height[i], height[j]) * (j - i) as i32;
+            if result < area {
+                result = area;
+            }
+            match height[i] < height[j] {
+                true => i += 1,
+                false => j -= 1,
+            }
+        }
+        result
+    }
 }
 // @lc code=end
