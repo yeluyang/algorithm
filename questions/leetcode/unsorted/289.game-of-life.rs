@@ -68,6 +68,52 @@
 
 // @lc code=start
 impl Solution {
-    pub fn game_of_life(board: &mut Vec<Vec<i32>>) {}
+    const DEATH_TO_LIVE: i32 = 2;
+    const LIVE_TO_DEATH: i32 = 3;
+    pub fn game_of_life(board: &mut Vec<Vec<i32>>) {
+        for m in 0..board.len() {
+            for n in 0..board[m].len() {
+                let mut lives = 0u8;
+                let top = m.checked_sub(1).or(Some(m)).unwrap();
+                let bottom = if m + 1 >= board.len() { m } else { m + 1 };
+                let left = n.checked_sub(1).or(Some(n)).unwrap();
+                let right = if n + 1 >= board[m].len() { n } else { n + 1 };
+                for i in top..=bottom {
+                    for j in left..=right {
+                        if i == m && j == n {
+                            continue;
+                        }
+                        if board[i][j] == 1 || board[i][j] == Self::LIVE_TO_DEATH {
+                            lives += 1;
+                        }
+                    }
+                }
+                let live_in_next_epoch = match board[m][n] {
+                    0 => lives == 3,
+                    1 => lives == 2 || lives == 3,
+                    _ => unreachable!(),
+                };
+                board[m][n] = match (board[m][n] == 1, live_in_next_epoch) {
+                    (false, false) => 0,                  // death to death
+                    (false, true) => Self::DEATH_TO_LIVE, // death to live
+                    (true, false) => Self::LIVE_TO_DEATH, // live to death
+                    (true, true) => 1,                    // live to live
+                };
+            }
+        }
+        for m in 0..board.len() {
+            for n in 0..board[m].len() {
+                match board[m][n] {
+                    Self::LIVE_TO_DEATH => {
+                        board[m][n] = 0;
+                    }
+                    Self::DEATH_TO_LIVE => {
+                        board[m][n] = 1;
+                    }
+                    _ => {}
+                }
+            }
+        }
+    }
 }
 // @lc code=end
