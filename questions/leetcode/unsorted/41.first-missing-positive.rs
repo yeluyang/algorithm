@@ -52,6 +52,27 @@
 
 // @lc code=start
 impl Solution {
-    pub fn first_missing_positive(nums: Vec<i32>) -> i32 {}
+    pub fn first_missing_positive(nums: Vec<i32>) -> i32 {
+        let mut nums = nums;
+        let mut i = 0usize;
+        while i < nums.len() {
+            if nums[i] <= 0 {
+                i += 1;
+            } else {
+                let n = nums[i] as usize;
+                if n > 0 && n <= nums.len() && nums[n - 1] != n as i32 {
+                    nums.swap(i, n - 1);
+                } else {
+                    i += 1;
+                }
+            }
+        }
+        for i in 0..nums.len() {
+            if nums[i] != i as i32 + 1 {
+                return i as i32 + 1;
+            }
+        }
+        return nums.len() as i32 + 1;
+    }
 }
 // @lc code=end
