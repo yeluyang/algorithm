@@ -46,6 +46,22 @@
 
 // @lc code=start
 impl Solution {
-    pub fn longest_consecutive(nums: Vec<i32>) -> i32 {}
+    pub fn longest_consecutive(nums: Vec<i32>) -> i32 {
+        let num_set: std::collections::HashSet<&i32> = nums.iter().collect();
+        let mut len = 0i32;
+        for n in nums.iter() {
+            if num_set.contains(&(n - 1)) {
+                continue;
+            }
+            let mut i = 0i32;
+            while num_set.contains(&(n + i)) {
+                i += 1;
+            }
+            if i > len {
+                len = i;
+            }
+        }
+        len
+    }
 }
 // @lc code=end
