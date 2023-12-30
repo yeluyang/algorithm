@@ -59,6 +59,37 @@
 
 // @lc code=start
 impl Solution {
-    pub fn find_duplicate(nums: Vec<i32>) -> i32 {}
+    pub fn find_duplicate(nums: Vec<i32>) -> i32 {
+        let bits_max = {
+            // over 10^5
+            let mut bits_max = 19u8;
+            let mut mask = 0b0100_0000_0000_0000_0000;
+            while mask > nums.len() {
+                bits_max -= 1;
+                mask >>= 1;
+            }
+            bits_max
+        };
+
+        let mut result = 0i32;
+        for k in 0..bits_max {
+            let mask: i32 = 1 << k;
+            let mut range_bit_count = 0u32;
+            let mut value_bit_count = 0u32;
+            for (i, n) in nums.iter().enumerate() {
+                if i as i32 & mask != 0 {
+                    range_bit_count += 1;
+                }
+                if *n & mask != 0 {
+                    value_bit_count += 1;
+                }
+            }
+            if value_bit_count > range_bit_count {
+                result |= mask;
+            }
+        }
+
+        result
+    }
 }
 // @lc code=end
