@@ -61,12 +61,22 @@
 impl Solution {
     pub fn find_duplicate(nums: Vec<i32>) -> i32 {
         let bits_max = {
-            // over 10^5
+            // 19 bits already over 10^5
             let mut bits_max = 19u8;
-            let mut mask = 0b0100_0000_0000_0000_0000;
-            while mask > nums.len() {
-                bits_max -= 1;
-                mask >>= 1;
+            let mut left = 0u8;
+            let mut right = 18u8;
+            while left <= right {
+                let mid: u8 = ((right - left) >> 2) + left;
+                let mask = 1 << mid;
+                if mask >= nums.len() {
+                    bits_max = mid + 1;
+                    if mask == nums.len() {
+                        break;
+                    }
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                };
             }
             bits_max
         };
