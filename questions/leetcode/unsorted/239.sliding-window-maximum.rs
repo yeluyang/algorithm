@@ -57,6 +57,32 @@
 
 // @lc code=start
 impl Solution {
-    pub fn max_sliding_window(nums: Vec<i32>, k: i32) -> Vec<i32> {}
+    pub fn max_sliding_window(nums: Vec<i32>, k: i32) -> Vec<i32> {
+        let k = k as usize;
+        let mut increments: std::collections::VecDeque<(usize, i32)> =
+            std::collections::VecDeque::new();
+        for i in 0..k {
+            while !increments.is_empty() && increments.back().unwrap().1 <= nums[i] {
+                increments.pop_back();
+            }
+            increments.push_back((i, nums[i]));
+        }
+        let mut result: Vec<i32> = Vec::with_capacity(nums.len() - k + 1);
+        result.push(increments.front().unwrap().1);
+        for i in k..nums.len() {
+            while !increments.is_empty() && increments.back().unwrap().1 <= nums[i] {
+                increments.pop_back();
+            }
+            increments.push_back((i, nums[i]));
+
+            if increments.front().unwrap().0 < i - k + 1 {
+                increments.pop_front();
+            };
+
+            result.push(increments.front().unwrap().1);
+        }
+
+        result
+    }
 }
 // @lc code=end
