@@ -60,6 +60,37 @@
 
 // @lc code=start
 impl Solution {
-    pub fn calculate(s: String) -> i32 {}
+    pub fn calculate(s: String) -> i32 {
+        let s = s + " ";
+        let mut buff = String::new();
+        let mut stack = std::collections::VecDeque::<i32>::new();
+        let mut op = '+';
+        for c in s.chars() {
+            if c.is_ascii_digit() {
+                buff.push(c);
+            } else {
+                if !buff.is_empty() {
+                    let num = buff.parse::<i32>().unwrap();
+                    buff.clear();
+                    match op {
+                        '+' => stack.push_back(num),
+                        '-' => stack.push_back(-num),
+                        '*' => {
+                            *(stack.back_mut().unwrap()) *= num;
+                        }
+                        '/' => {
+                            *(stack.back_mut().unwrap()) /= num;
+                        }
+                        _ => (),
+                    };
+                }
+                match c {
+                    '+' | '-' | '*' | '/' => op = c,
+                    _ => (),
+                };
+            }
+        }
+        stack.into_iter().sum()
+    }
 }
 // @lc code=end
