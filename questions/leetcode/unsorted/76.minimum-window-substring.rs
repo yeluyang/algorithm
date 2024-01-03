@@ -69,56 +69,63 @@
 // @lc code=start
 impl Solution {
     pub fn min_window(s: String, t: String) -> String {
-        let mut t_map = std::collections::HashMap::<char, usize>::new();
+        let mut t_map = std::collections::HashMap::<char, u32>::new();
         for c in t.chars() {
             t_map.entry(c).and_modify(|count| *count += 1).or_insert(1);
         }
 
         let chars: Vec<char> = s.chars().collect();
-        let mut left = None;
-        let mut right = None;
-        let mut s_map = std::collections::HashMap::<char, std::collections::VecDeque<usize>>::new();
+        let mut next_indices = Vec::new();
         for (i, c) in chars.iter().enumerate() {
             if t_map.contains_key(c) {
-                if left.is_none() {
-                    left.replace(i);
-                }
-                right = Some(i);
-                s_map
-                    .entry(*c)
-                    .and_modify(|indices| indices.push_back(i))
-                    .or_insert(vec![i].into());
-            }
-        }
-        if left.is_none() || right.is_none() {
-            return "".to_owned();
-        }
-
-        let mut left = left.unwrap();
-        let mut right = right.unwrap();
-        while s_map[&chars[left]].len() > t_map[&chars[left]] {
-            s_map.get_mut(&chars[left]).unwrap().pop_front();
-            loop {
-                left += 1;
-                if t_map.contains_key(&chars[left]) {
-                    break;
-                }
-            }
-        }
-        while s_map[&chars[right]].len() > t_map[&chars[right]] {
-            s_map.get_mut(&chars[right]).unwrap().pop_back();
-            loop {
-                right -= 1;
-                if t_map.contains_key(&chars[right]) {
-                    break;
-                }
+                next_indices.push(i);
             }
         }
 
-        return if right - left + 1 < t.len() {
-            String::new()
+        let mut result: Option<std::ops::Range<usize>> = None;
+        let mut li = 0usize;
+        let mut counter = std::collections::HashMap::<char, u32>::new();
+        for ri in 0..next_indices.len() {
+            let right = next_indices[ri];
+            counter
+                .entry(chars[right])
+                .and_modify(|count| *count += 1)
+                .or_insert(1);
+            while (|| {
+                for (c, count) in t_map.iter() {
+                    if let Some(current) = counter.get(&c) {
+                        if *current < *count {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+                return true;
+            })() && li <= ri
+            {
+                let left = next_indices[li];
+                if let Some(ref mut r) = result {
+                    if right - left + 1 < r.len() {
+                        r.start = left;
+                        r.end = right + 1;
+                    }
+                } else {
+                    result = Some(std::ops::Range {
+                        start: left,
+                        end: right + 1,
+                    });
+                }
+
+                *counter.get_mut(&chars[left]).unwrap() -= 1;
+                li += 1;
+            }
+        }
+
+        return if let Some(result) = result {
+            s[result].to_owned()
         } else {
-            s[left..=right].to_owned()
+            String::new()
         };
     }
 }
