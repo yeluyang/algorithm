@@ -1,15 +1,18 @@
+use crate::leetcode::*;
+
 pub fn solution() {
-    // call solution here
+    // invoke here, replace unimplemented!() to invoke your answer
     println!("{:?}", unimplemented!());
 }
 
 struct Solution {}
 
+// answer here
 impl Solution {
-    // impl solution here
+
 }
 
-// impl test case for solution here
+// test here
 #[cfg(test)]
 mod tests {
     use crate::tests::*;
@@ -19,7 +22,7 @@ mod tests {
     #[test]
     fn test_solution() {
         init();
-        // test solution here
-        unimplemented!();
+        // add test cases here
+
     }
 }
