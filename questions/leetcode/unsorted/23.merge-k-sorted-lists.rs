@@ -78,6 +78,38 @@
 //   }
 // }
 impl Solution {
-    pub fn merge_k_lists(lists: Vec<Option<Box<ListNode>>>) -> Option<Box<ListNode>> {}
+    pub fn merge_k_lists(mut lists: Vec<Option<Box<ListNode>>>) -> Option<Box<ListNode>> {
+        let mut heap_min = std::collections::BinaryHeap::with_capacity(lists.len());
+        for (i, n) in lists.iter().enumerate() {
+            if let Some(n) = n {
+                heap_min.push(std::cmp::Reverse((n.val, i)));
+            }
+        }
+
+        let mut result: Option<Box<ListNode>> = None;
+        let mut last: &mut Option<Box<ListNode>> = &mut result;
+        while let Some(std::cmp::Reverse(v)) = heap_min.pop() {
+            // specify indicate
+            let i = v.1;
+            // take node from lists
+            if let Some(mut current) = lists[i].take() {
+                // update next node into lists
+                lists[i] = current.next.take();
+                if let Some(ref next) = lists[i] {
+                    // push next node into heap
+                    heap_min.push(std::cmp::Reverse((next.val, i)));
+                };
+                // update result
+                if let Some(ref mut l) = last {
+                    l.next = Some(current);
+                    last = &mut l.next;
+                } else {
+                    last.replace(current);
+                };
+            };
+        }
+
+        result
+    }
 }
 // @lc code=end
