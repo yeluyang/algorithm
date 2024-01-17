@@ -61,6 +61,67 @@
 
 // @lc code=start
 impl Solution {
-    pub fn ladder_length(begin_word: String, end_word: String, word_list: Vec<String>) -> i32 {}
+    pub fn ladder_length(begin_word: String, end_word: String, word_list: Vec<String>) -> i32 {
+        let mut graph = Graph::with_capacity(word_list.len() + 1);
+        graph.insert(begin_word);
+        for w in word_list {
+            graph.insert(w);
+        }
+        let end_i = graph.indicate(&end_word);
+        if end_i.is_none() {
+            return 0;
+        };
+        let end_i = end_i.unwrap();
+        let start_i = 0usize;
+        unimplemented!()
+    }
+}
+
+struct Node {
+    start_accessed: bool,
+    end_accessed: bool,
+    next: Vec<usize>,
+}
+
+struct Graph {
+    indicates: std::collections::HashMap<String, usize>,
+    nodes: Vec<Node>,
+}
+
+impl Graph {
+    fn with_capacity(capacity: usize) -> Self {
+        Self {
+            indicates: std::collections::HashMap::with_capacity(capacity),
+            nodes: Vec::with_capacity(capacity),
+        }
+    }
+
+    fn indicate(&self, word: &str) -> Option<usize> {
+        self.indicates.get(word).map(|v| *v)
+    }
+
+    fn insert(&mut self, word: String) {
+        let mut buff = word.chars().collect::<Vec<char>>();
+
+        let i = self.nodes.len();
+        self.indicates.insert(word, i);
+        self.nodes.push(Node {
+            start_accessed: false,
+            end_accessed: false,
+            next: Vec::new(),
+        });
+
+        for j in 0..buff.len() {
+            let c = buff[j];
+            buff[j] = '*';
+            let key = buff.iter().collect::<String>();
+            buff[j] = c;
+
+            if let Some(k) = self.indicates.get(&key) {
+                self.nodes[i].next.push(*k);
+                self.nodes[*k].next.push(i);
+            };
+        }
+    }
 }
 // @lc code=end
