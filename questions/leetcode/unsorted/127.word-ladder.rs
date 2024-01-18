@@ -67,22 +67,22 @@ impl Solution {
         for w in word_list {
             graph.insert(w);
         }
-        let end_i = graph.indicate(&end_word);
-        if end_i.is_none() {
-            return 0;
-        };
-        let end_i = end_i.unwrap();
-        let start_i = 0usize;
-        unimplemented!()
+        if let Some(end) = graph.indicate(&end_word) {
+            graph.distance(&0, &end)
+        } else {
+            0
+        }
     }
 }
 
+#[derive(Debug)]
 struct Node {
-    start_accessed: bool,
-    end_accessed: bool,
+    accessed_start: bool,
+    accessed_end: bool,
     next: Vec<usize>,
 }
 
+#[derive(Debug)]
 struct Graph {
     indicates: std::collections::HashMap<String, usize>,
     nodes: Vec<Node>,
@@ -100,27 +100,70 @@ impl Graph {
         self.indicates.get(word).map(|v| *v)
     }
 
+    fn distance(&mut self, start: &usize, end: &usize) -> i32 {
+        self.nodes[*start].accessed_start = true;
+        self.nodes[*end].accessed_end = true;
+
+        let mut d_start = vec![0i32; self.nodes.len()];
+        let mut d_end = vec![0i32; self.nodes.len()];
+
+        let mut q_start = std::collections::VecDeque::new();
+        q_start.push_back(*start);
+
+        let mut q_end = std::collections::VecDeque::new();
+        q_end.push_back(*end);
+
+        while !q_start.is_empty() || !q_end.is_empty() {
+            if let Some(i) = q_start.pop_front() {
+                // if self.nodes[i].accessed_end {
+                //     return (d_start[i] + d_end[i]) / 2;
+                // }
+                for j in self.nodes[i].next.clone().into_iter() {
+                    if self.nodes[j].accessed_start {
+                        continue;
+                    };
+                    d_start[j] = d_start[i] + 1;
+                    self.nodes[j].accessed_start = true;
+                    q_start.push_back(j);
+                }
+            }
+
+            if let Some(i) = q_end.pop_front() {}
+        }
+        d_start[*end] / 2
+    }
+
     fn insert(&mut self, word: String) {
         let mut buff = word.chars().collect::<Vec<char>>();
 
-        let i = self.nodes.len();
-        self.indicates.insert(word, i);
-        self.nodes.push(Node {
-            start_accessed: false,
-            end_accessed: false,
-            next: Vec::new(),
-        });
+        let i = self._insert(word);
 
         for j in 0..buff.len() {
-            let c = buff[j];
-            buff[j] = '*';
-            let key = buff.iter().collect::<String>();
-            buff[j] = c;
-
-            if let Some(k) = self.indicates.get(&key) {
-                self.nodes[i].next.push(*k);
-                self.nodes[*k].next.push(i);
+            let key = {
+                let c = buff[j];
+                buff[j] = '*';
+                let key = buff.iter().collect::<String>();
+                buff[j] = c;
+                key
             };
+
+            let k = self._insert(key);
+            self.nodes[i].next.push(k);
+            self.nodes[k].next.push(i);
+        }
+    }
+    fn _insert(&mut self, key: String) -> usize {
+        if let Some(i) = self.indicates.get(&key) {
+            *i
+        } else {
+            self.nodes.push(Node {
+                accessed_start: false,
+                accessed_end: false,
+                next: Vec::new(),
+            });
+            let i = self.nodes.len() - 1;
+            self.indicates.insert(key, i);
+            i
         }
     }
 }
