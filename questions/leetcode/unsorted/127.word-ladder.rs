@@ -68,7 +68,11 @@ impl Solution {
             graph.insert(w);
         }
         if let Some(end) = graph.indicate(&end_word) {
-            graph.distance(&0, &end)
+            let d = graph.distance(&0, &end);
+            match d {
+                0 => 0,
+                _ => d + 1,
+            }
         } else {
             0
         }
@@ -115,9 +119,9 @@ impl Graph {
 
         while !q_start.is_empty() || !q_end.is_empty() {
             if let Some(i) = q_start.pop_front() {
-                // if self.nodes[i].accessed_end {
-                //     return (d_start[i] + d_end[i]) / 2;
-                // }
+                if self.nodes[i].accessed_end {
+                    return (d_start[i] + d_end[i]) / 2;
+                }
                 for j in self.nodes[i].next.clone().into_iter() {
                     if self.nodes[j].accessed_start {
                         continue;
@@ -128,7 +132,19 @@ impl Graph {
                 }
             }
 
-            if let Some(i) = q_end.pop_front() {}
+            if let Some(i) = q_end.pop_front() {
+                if self.nodes[i].accessed_start {
+                    return (d_start[i] + d_end[i]) / 2;
+                }
+                for j in self.nodes[i].next.clone().into_iter() {
+                    if self.nodes[j].accessed_end {
+                        continue;
+                    };
+                    d_end[j] = d_end[i] + 1;
+                    self.nodes[j].accessed_end = true;
+                    q_end.push_back(j);
+                }
+            }
         }
         d_start[*end] / 2
     }
