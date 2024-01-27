@@ -53,6 +53,55 @@
 
 // @lc code=start
 impl Solution {
-    pub fn solve(board: &mut Vec<Vec<char>>) {}
+    pub fn solve(board: &mut Vec<Vec<char>>) {
+        if board.is_empty() || board[0].is_empty() {
+            return;
+        }
+        let bottom = board.len() - 1;
+        let right = board[0].len() - 1;
+
+        for i in 0..=bottom {
+            if board[i][0] == 'O' {
+                Self::_solve(board, &i, &0)
+            }
+            if board[i][right] == 'O' {
+                Self::_solve(board, &i, &right)
+            }
+        }
+        for i in 0..=right {
+            if board[0][i] == 'O' {
+                Self::_solve(board, &0, &i)
+            }
+            if board[bottom][i] == 'O' {
+                Self::_solve(board, &bottom, &i)
+            }
+        }
+        for i in 0..=bottom {
+            for j in 0..=right {
+                match board[i][j] {
+                    'O' => board[i][j] = 'X',
+                    'M' => board[i][j] = 'O',
+                    _ => {}
+                }
+            }
+        }
+    }
+
+    fn _solve(board: &mut Vec<Vec<char>>, x: &usize, y: &usize) {
+        board[*x][*y] = 'M';
+        if *x > 0 && board[*x - 1][*y] == 'O' {
+            Self::_solve(board, &(x - 1), y);
+        };
+        if *x < board.len() - 1 && board[x + 1][*y] == 'O' {
+            Self::_solve(board, &(x + 1), y);
+        };
+
+        if *y > 0 && board[*x][y - 1] == 'O' {
+            Self::_solve(board, x, &(y - 1));
+        };
+        if *y < board[*x].len() - 1 && board[*x][y + 1] == 'O' {
+            Self::_solve(board, x, &(y + 1));
+        };
+    }
 }
 // @lc code=end
