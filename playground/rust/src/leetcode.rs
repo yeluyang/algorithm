@@ -23,6 +23,14 @@ fn options_from_str(s: &str) -> Vec<Option<i32>> {
     serde_json::from_str(s).unwrap()
 }
 
+pub fn i32_from_str(s: &str) -> Vec<i32> {
+    serde_json::from_str(s).unwrap()
+}
+
+pub fn matrix_i32_from_str(s: &str) -> Vec<Vec<i32>> {
+    serde_json::from_str(s).unwrap()
+}
+
 fn tree_from_vec(v: Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
     if v.is_empty() {
         return None;
