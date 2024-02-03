@@ -70,6 +70,38 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 impl Solution {
-    pub fn max_path_sum(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {}
+    pub fn max_path_sum(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let mut max_sum = i32::MIN;
+        if let Some(root) = root {
+            Self::_max_path_sum(root, &mut max_sum);
+        }
+        max_sum
+    }
+    fn _max_path_sum(root: Rc<RefCell<TreeNode>>, max_sum: &mut i32) -> i32 {
+        let left_sum = if let Some(left) = root.borrow().left.clone() {
+            Self::_max_path_sum(left, max_sum)
+        } else {
+            0
+        };
+        let right_sum = if let Some(right) = root.borrow().right.clone() {
+            Self::_max_path_sum(right, max_sum)
+        } else {
+            0
+        };
+        *max_sum = std::cmp::max(
+            *max_sum,
+            root.borrow().val
+                + match (left_sum > 0, right_sum > 0) {
+                    (true, true) => left_sum + right_sum,
+                    (true, false) => left_sum,
+                    (false, true) => right_sum,
+                    (false, false) => 0,
+                },
+        );
+        std::cmp::max(
+            root.borrow().val,
+            std::cmp::max(root.borrow().val + left_sum, root.borrow().val + right_sum),
+        )
+    }
 }
 // @lc code=end
