@@ -60,6 +60,29 @@
 
 // @lc code=start
 impl Solution {
-    pub fn find_circle_num(is_connected: Vec<Vec<i32>>) -> i32 {}
+    pub fn find_circle_num(mut is_connected: Vec<Vec<i32>>) -> i32 {
+        let mut num = 0i32;
+        for i in 0..is_connected.len() {
+            if Self::dfs(&mut is_connected, i) {
+                num += 1;
+            }
+        }
+        num
+    }
+    fn dfs(is_connected: &mut Vec<Vec<i32>>, cur: usize) -> bool {
+        let mut all_zero = true;
+        let mut any_one = false;
+        for i in 0..is_connected[cur].len() {
+            if is_connected[cur][i] != 0 {
+                all_zero = false;
+            }
+            if is_connected[cur][i] == 1 {
+                any_one = true;
+                is_connected[cur][i] = 2;
+                Solution::dfs(is_connected, i);
+            }
+        }
+        all_zero || any_one
+    }
 }
 // @lc code=end
