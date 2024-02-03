@@ -84,6 +84,39 @@ impl Solution {
         p: Option<Rc<RefCell<TreeNode>>>,
         q: Option<Rc<RefCell<TreeNode>>>,
     ) -> Option<Rc<RefCell<TreeNode>>> {
+        if let Some(root) = root {
+            Self::_lowest_common_ancestor(root, p.unwrap(), q.unwrap())
+        } else {
+            None
+        }
+    }
+    fn _lowest_common_ancestor(
+        root: Rc<RefCell<TreeNode>>,
+        p: Rc<RefCell<TreeNode>>,
+        q: Rc<RefCell<TreeNode>>,
+    ) -> Option<Rc<RefCell<TreeNode>>> {
+        if root.borrow().val == p.borrow().val || root.borrow().val == q.borrow().val {
+            return Some(root.clone());
+        }
+
+        let left = if let Some(ref left) = root.borrow().left {
+            Self::_lowest_common_ancestor(left.clone(), p.clone(), q.clone())
+        } else {
+            None
+        };
+
+        let right = if let Some(ref right) = root.borrow().right {
+            Self::_lowest_common_ancestor(right.clone(), p.clone(), q.clone())
+        } else {
+            None
+        };
+
+        match (&left, &right) {
+            (Some(_), Some(_)) => Some(root),
+            (Some(_), None) => left,
+            (None, Some(_)) => right,
+            (None, None) => None,
+        }
     }
 }
 // @lc code=end
