@@ -55,7 +55,51 @@
  */
 
 // @lc code=start
+#[derive(Clone)]
+enum Status {
+    Searching,
+    Done,
+}
 impl Solution {
-    pub fn can_finish(num_courses: i32, prerequisites: Vec<Vec<i32>>) -> bool {}
+    pub fn can_finish(num_courses: i32, prerequisites: Vec<Vec<i32>>) -> bool {
+        let mut graph: Vec<(Option<Status>, Vec<i32>)> = vec![(None, vec![]); num_courses as usize];
+        for p in prerequisites {
+            graph[p[1] as usize].1.push(p[0]);
+        }
+        for i in 0..num_courses {
+            match graph[i as usize].0 {
+                None => {
+                    if !Self::dfs(&mut graph, i) {
+                        return false;
+                    }
+                }
+                Some(Status::Searching) => {
+                    return false;
+                }
+                Some(Status::Done) => continue,
+            };
+        }
+        true
+    }
+    fn dfs(graph: &mut Vec<(Option<Status>, Vec<i32>)>, cur: i32) -> bool {
+        match graph[cur as usize].0 {
+            None => {
+                graph[cur as usize].0.replace(Status::Searching);
+            }
+            Some(Status::Searching) => {
+                return false;
+            }
+            Some(Status::Done) => {
+                return true;
+            }
+        };
+        for i in 0..graph[cur as usize].1.len() {
+            if !Self::dfs(graph, graph[cur as usize].1[i]) {
+                return false;
+            };
+        }
+        graph[cur as usize].0.replace(Status::Done);
+        true
+    }
 }
 // @lc code=end
